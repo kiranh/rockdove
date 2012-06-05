@@ -1,8 +1,10 @@
 require 'viewpoint'
+require 'email_reply_parser'
 require "rockdove/version"
 require "rockdove/dovetie" if defined?(Rails)
 
 module Rockdove
+  
   class Ready
   	attr_accessor :url, :username, :password, :incoming_folder, :move_folder
 
@@ -37,8 +39,18 @@ module Rockdove
 
   	def self.retrieve_mail
   	  self.connect()
-  	  Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder)
+  	  inbox = Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder)
+  	  all_mails  = inbox.find_items
+  	  mail = inbox.get_item(all_mails.first.id) if all_mails
+  	  mail
   	end
+
+    def self.parse_mail(mail)
+      text = mail.body.text
+      EmailReplyParser.parse_reply(mail.sanitize!)
+    end
+
+  	
   end
 
 end
