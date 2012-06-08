@@ -1,13 +1,22 @@
 require 'spec_helper.rb'
 
 describe "FetchIncomingMail" do
-  it "should connect to the exchange web service url and authenticate" do
-  	Rockdove::Ready.connect.should == true
+  
+  it "should valid the exchange server info provided" do
+    Rockdove::Ready.url.should_not be_nil
+    Rockdove::Ready.username.should_not be_nil
+    Rockdove::Ready.password.should_not be_nil
+    Rockdove::Ready.incoming_folder.should_not be_nil    
   end
 
-   it "should be able to retrieve the incoming mail" do
-   	 Rockdove::Ready.retrieve_mail.should be_an_instance_of(Viewpoint::EWS::Message)  
-   end
+  it "should connect to the exchange web service url and authenticate" do
+    Rockdove::Ready.connect.should == true
+  end
+
+  it "should be able to retrieve the incoming mail" do
+    puts Rockdove::Ready.retrieve_mail  
+    Rockdove::Ready.retrieve_mail.should be_an_instance_of(String)  
+  end
 
    #context "parse the mail" do
    #  before do 
