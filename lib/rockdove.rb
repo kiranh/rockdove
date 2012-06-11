@@ -44,13 +44,49 @@ module Rockdove
     end
 
     def self.retrieve_mail
+      dove_mail = Hash.new
       self.connect()
       inbox = Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder)
       all_mails  = inbox.find_items
-      mail = inbox.get_item(all_mails.first.id) if all_mails
-      Rockdove::DoveParser.parse_mail(mail)
+      if(all_mails.length > 0)
+        item = inbox.get_item(msgs.first.id)
+        collect_stuff(item) if item
+      end
+      return dove_mail
+    end
+
+    def collect_stuff(mail)
+      dove_mail[:from] = mail.from.email_address
+      dove_mail[:to] = mail.to_recipients.collect &:email_address if mail.to_recipients
+      dove_mail[:cc] = mail.cc_recipients.collect &:email_address if mail.cc_recipients
+      dove_mail[:subject] = mail.subject.strip
+      dove_mail[:body] = Rockdove::DoveParser.parse_mail(mail.body) if mail.body.length > 0
+      dove_mail[:datetime_sent] = mail.date_time_sent
+      dove_mail[:datetime_created] = mail.date_time_created
+      dove_mail[:has_attachments?] = mail.has_attachments?
+      return dove_mail
     end
     
+  end
+
+  class Action 
+    #Rockdove.poll do |parsed_message|
+    #  Post.process_this_mail(parsed_message)
+    #end
+
+    def poll
+      loop do
+        begin
+          parsed_message = Rockdove::Ready.retrieve_mail
+          yield(parsed_message) if parsed_message,values.any?
+        rescue Exception => e
+          Rockdove.logger.info(e)
+        ensure
+          sleep(Rockdove.poll_interval)
+        end
+      end
+    end
+
   end
 
 end
