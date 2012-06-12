@@ -42,21 +42,18 @@ module Rockdove
     end
 
     class Action 
-      class << self
-        attr_accessor :dove_mail, :raw_item
-      end
-
-      def self.retrieve_mail
+      def retrieve_mail
         inbox = fetch_box
         all_mails  = inbox.find_items
         if(all_mails.length > 0)
           @raw_item = inbox.get_item(all_mails.first.id)
           collect_stuff if @raw_item
         end       
-        return @dove_mail
+        @dove_mail
       end
 
-      def self.collect_stuff
+      def collect_stuff
+        @dove_mail = Rockdove::ExchangeMail.new(@raw_item)
         @dove_mail = Hash.new
         @dove_mail[:from] = @raw_item.from.email_address
         Rockdove.logger.info "Rockdove received the mail from #{@dove_mail[:from]}..."
@@ -70,18 +67,18 @@ module Rockdove
         get_attachment_list if @dove_mail[:has_attachments?] 
       end
 
-      def self.fetch_box
+      def fetch_box
         incoming_folder = Rockdove::Follow::Ready.incoming_folder
         begin
-          return Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
+          Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
         rescue
           Rockdove.logger.info "Reconnecting to the Exchange Server & Fetching the Mail now..."
           Rockdove::Ready.connect
-          return Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
+          Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
         end
       end
 
-      def self.get_attachment_list
+      def get_attachment_list
         Rockdove.logger.info "Looks like there are some attachments to this mail... "
         count = 0
         @dove_mail[:attachments] = Hash.new
@@ -96,15 +93,20 @@ module Rockdove
         @dove_mail[:attachments_count] = count
       end
 
+      def packup
+      end
+
+
       #Rockdove::Follow::Action.watch do |parsed_message|
       #  Post.process_this_mail(parsed_message)
       #end
 
-      def watch
+      def self.watch
         loop do
           begin
             Rockdove.logger.info "Rockdove on watch for new mail ... "
-            parsed_message = Rockdove::Follow::Action.retrieve_mail
+            mail_retriever = Rockdove::Follow::Action.new()
+            parsed_message = mail_retriever.retrieve_mail()
             if parsed_message.values.any?
               yield(parsed_message) 
               Rockdove::Follow::PackUp.process
