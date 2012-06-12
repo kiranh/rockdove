@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "viewpoint"
   s.add_runtime_dependency "email_reply_parser"
   s.add_runtime_dependency "sanitize"
+  s.add_runtime_dependency "logger"
 end
