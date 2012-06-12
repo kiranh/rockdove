@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Rockdove::VERSION
   s.authors     = ["Kiran Soumya"]
   s.email       = ["kiran.soumya@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/kiranh/rockdove"
   s.summary     = %q{Incoming mail processing framework for Exchange Web Services (EWS)}
-  s.description = %q{A Ruby Gem for Incoming mail processing framework for Exchange Web Services (EWS)}
+  s.description = %q{Incoming mail processing framework for Exchange Web Services (EWS). This is the Ruby Gem that does fetching, parsing and watching the mailbox for further processing.}
 
   s.rubyforge_project = "rockdove"
 
@@ -24,6 +24,5 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "viewpoint"
   s.add_runtime_dependency "email_reply_parser"
-  s.add_runtime_dependency "sanitize"
   s.add_runtime_dependency "logger"
 end

@@ -2,7 +2,7 @@ module Rockdove
 	module Follow
 	  class Ready 
       class << self
-        attr_accessor :url, :username, :password, :incoming_folder, :move_folder, :poll_interval
+        attr_accessor :url, :username, :password, :incoming_folder, :move_folder, :watch_interval
       end
 
       def self.configure( &block )
@@ -30,12 +30,12 @@ module Rockdove
       	@move_folder = value || 'Archive'
     	end
 
-    	def self.ews_poll_interval( value )
-      	@poll_interval = value || 60
+    	def self.ews_watch_interval( value )
+      	@watch_interval = value || 60
     	end
 
     	def self.connect
-    		Rockdove.logger.info "Hang On ! Connecting to Exchange Server..."
+    		Rockdove.logger.info "Hang On ! Rockdove is connecting to Exchange Server..."
       	Viewpoint::EWS::EWS.endpoint = @url
       	Viewpoint::EWS::EWS.set_auth @username, @password
     	end      
@@ -59,7 +59,7 @@ module Rockdove
     	def self.collect_stuff
     		@dove_mail = Hash.new
       	@dove_mail[:from] = @raw_item.from.email_address
-      	Rockdove.logger.info "Fetching the Mail now from #{@dove_mail[:from]}..."
+      	Rockdove.logger.info "Rockdove received the mail from #{@dove_mail[:from]}..."
       	@dove_mail[:to] = @raw_item.to_recipients.collect &:email_address if @raw_item.to_recipients
       	@dove_mail[:cc] = @raw_item.cc_recipients.collect &:email_address if @raw_item.cc_recipients
       	@dove_mail[:subject] = @raw_item.subject.strip
@@ -96,14 +96,14 @@ module Rockdove
     		@dove_mail[:attachments_count] = count
     	end
 
-    	#Rockdove.poll do |parsed_message|
+    	#Rockdove::Follow::Action.watch do |parsed_message|
     	#  Post.process_this_mail(parsed_message)
     	#end
 
-    	def poll
+    	def watch
 	      loop do
         	begin
-        		Rockdove.logger.info "EWS Mailbox Polling Started... "
+        		Rockdove.logger.info "Rockdove on watch for new mail ... "
           	parsed_message = Rockdove::Follow::Action.retrieve_mail
           	if parsed_message.values.any?
 	            yield(parsed_message) 
@@ -112,7 +112,7 @@ module Rockdove
         	rescue Exception => e
 	          Rockdove.logger.info(e)
         	ensure
-	          sleep(Rockdove.poll_interval)
+	          sleep(Rockdove.watch_interval)
         	end
       	end
     	end
@@ -125,10 +125,10 @@ module Rockdove
   	 	  to_folder = Rockdove::Follow::Ready.move_folder
     	  if to_folder.blank?
     	    item.delete!
-    	    Rockdove.logger.info "Deleted the Mail..."
+    	    Rockdove.logger.info "Rockdove delivered the Mail..."
     	  else
    	      item.move!(to_folder)  
-   	      Rockdove.logger.info "Archived the Mail..."
+   	      Rockdove.logger.info "Rockdove delivered & archived the Mail..."
     	  end
     	end
   	end
