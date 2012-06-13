@@ -9,14 +9,24 @@ describe "FetchIncomingMail" do
     Rockdove::Follow::Ready.incoming_folder.should_not be_nil    
   end
 
-  it "should connect to the exchange web service url and authenticate" do
-    Rockdove::Follow::Ready.connect.should == true
+  it "should connect to the Exchange Server" do
+    Rockdove::Follow::Ready.stub!(:connect).and_return(:true)
   end
 
-  it "should be able to retrieve the incoming mail" do
-    #puts Rockdove::Follow::Action.retrieve_mail  
-    Rockdove::Follow::Action.retrieve_mail.should be_an_instance_of(Hash)  
+  it "is trying to fetch mail when there is no incoming mail" do
+    mail_retriever = mock "Rockdove::Follow::Action"
+    mail_retriever.should_receive(:retrieve_mail).and_return(false)
+    mail_retriever.retrieve_mail().should == false
   end
+
+  it "is trying to fetch mail when there is incoming mail" do
+    mail_retriever = mock "Rockdove::Follow::Action"
+    exchange_mail = mock "Rockdove::ExchangeMail"
+    mail =  mail_retriever.should_receive(:retrieve_mail).and_return(exchange_mail)
+    mail_retriever.retrieve_mail().should == exchange_mail
+  end
+
+
 
    #context "parse the mail" do
    #  it "should be able to parse the mail item" do

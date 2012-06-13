@@ -10,6 +10,10 @@ module Rockdove
     attr_accessor :logger
   end
 
+  #
+  # Enabling the logger for Rockdove to track its where-abouts during the delivery process of the mail.
+  #
+
   def self.logger
     @logger ||= Logger.new(STDOUT)
   end
