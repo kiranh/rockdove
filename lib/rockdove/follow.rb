@@ -73,20 +73,16 @@ module Rockdove
       end
 
       def retrieve_mail
-        unless fetch_from_box
-          false
-        else
-          Rockdove::ExchangeMail.new(fetch_from_box)    
-        end
+        fetched_mail = fetch_from_box
+        return false unless fetched_mail
+        puts fetched_mail.to_yaml
+        Rockdove::ExchangeMail.new(fetched_mail)
       end      
 
       def fetch_from_box           
-        mail_stack = inbox.find_items       
-        if mail_stack.length > 0 
-          return inbox.get_item(mail_stack.first.id)           
-        else
-          return nil
-        end
+        mail_stack = inbox.find_items
+        return nil if mail_stack.empty?        
+        inbox.get_item(mail_stack.first.id)
       end
 
       def inbox

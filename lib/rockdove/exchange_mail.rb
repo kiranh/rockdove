@@ -11,14 +11,14 @@ module Rockdove
     def initialize(incoming_email)      
       @from = incoming_email.from.email_address
       Rockdove.logger.info "Rockdove received the mail from #{@from}..."
-      @to = incoming_email.to_recipients.collect &:email_address if incoming_email.to_recipients
-      @cc = incoming_email.cc_recipients.collect &:email_address if incoming_email.cc_recipients
+      @to = incoming_email.to_recipients.collect &:email_address if incoming_email.to_recipients.length > 0
+      @cc = incoming_email.cc_recipients.collect &:email_address if incoming_email.cc_recipients.length > 0
       @subject = incoming_email.subject.strip
       @body = Rockdove::DoveParser.new().parse_mail(incoming_email.body, incoming_email.body_type) if incoming_email.body.length > 0 
       @datetime_sent = incoming_email.date_time_sent
       @datetime_created = incoming_email.date_time_created
-      @has_attachments = incoming_email.has_attachments?    
-      get_attachment_list(incoming_email.attachments) if @has_attachments
+      @has_attachments = incoming_email.has_attachments?  rescue  ""
+      get_attachment_list(incoming_email.attachments) if @has_attachments && incoming_email.attachments.length > 0
     end
 
     #
