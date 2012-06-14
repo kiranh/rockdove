@@ -21,8 +21,9 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
   s.add_development_dependency "rspec"
   s.add_development_dependency "guard-rspec"
+  s.add_development_dependency "rspec-mocks"
 
   s.add_runtime_dependency "viewpoint"
   s.add_runtime_dependency "email_reply_parser"
-  s.add_runtime_dependency "logger"
+  s.add_runtime_dependency "logger"  
 end

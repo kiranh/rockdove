@@ -73,23 +73,29 @@ module Rockdove
       end
 
       def retrieve_mail
-        inbox = fetch_box
-        all_mails  = inbox.find_items
-        if all_mails.length > 0
-          @raw_item = inbox.get_item(all_mails.first.id)
-          Rockdove::ExchangeMail.new(@raw_item) if @raw_item
+        unless fetch_from_box
+          false
         else
-          false               
+          Rockdove::ExchangeMail.new(fetch_from_box)    
         end
       end      
 
-      def fetch_box
-        incoming_folder = Rockdove::Follow::Ready.incoming_folder
+      def fetch_from_box           
+        mail_stack = inbox.find_items       
+        if mail_stack.length > 0 
+          return inbox.get_item(mail_stack.first.id)           
+        else
+          return nil
+        end
+      end
+
+      def inbox
+        incoming_folder = Rockdove::Follow::Ready.incoming_folder 
         begin
           Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
         rescue
           Rockdove.logger.info "Reconnecting to the Exchange Server & Fetching the Mail now..."
-          Rockdove::Ready.connect
+          Rockdove::Follow::Ready.connect
           Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
         end
       end
