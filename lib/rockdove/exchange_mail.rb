@@ -1,20 +1,18 @@
 module Rockdove
   class ExchangeMail
-    
     attr_accessor :from, :to, :cc, :subject, :body, :datetime_sent, :datetime_created
     attr_accessor :has_attachments, :attachments, :attachments_count
-    
     #
     # initialize(incoming_email) takes in the parsed mail content and creates a Exchange mail object to be used or processed further in your code.
     # It returns all the mail info along with the attachments, if exists.
     #
-    def initialize(incoming_email)      
+    def initialize(incoming_email)
       @from = incoming_email.from.email_address
       Rockdove.logger.info "Rockdove received the mail from #{@from}..."
       @to = incoming_email.to_recipients.collect &:email_address if incoming_email.to_recipients.length > 0
       @cc = incoming_email.cc_recipients.collect &:email_address if incoming_email.cc_recipients.length > 0
       @subject = incoming_email.subject.strip
-      @body = Rockdove::DoveParser.new().parse_mail(incoming_email.body, incoming_email.body_type) if incoming_email.body.length > 0 
+      @body = Rockdove::DoveParser.new().parse_mail(incoming_email.body, incoming_email.body_type) if incoming_email.body.length > 0
       @datetime_sent = incoming_email.date_time_sent
       @datetime_created = incoming_email.date_time_created
       @has_attachments = incoming_email.has_attachments?  rescue  ""
@@ -33,7 +31,7 @@ module Rockdove
         @attachments["#{var_name}"]  = Hash.new
         @attachments["#{var_name}"][:id] = file.id
         @attachments["#{var_name}"][:content] = file.content
-        @attachments["#{var_name}"][:name] = file.file_name       
+        @attachments["#{var_name}"][:name] = file.file_name
         count += 1
       end
       @attachments_count = count

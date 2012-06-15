@@ -1,14 +1,14 @@
 require "rockdove/exchange_mail"
 module Rockdove
   module Follow
-    class Ready 
+    class Ready
       class << self
         attr_accessor :url, :username, :password, :incoming_folder, :move_folder, :watch_interval
       end
       #
       # This class handles the configuration ready part of Rockdove.
       # It takes in the Exchange Server details along with authentication and the folder details.
-      # 
+      #
       def self.configure( &block )
         block.call( self )
         connect
@@ -42,26 +42,24 @@ module Rockdove
         Rockdove.logger.info "Hang On ! Rockdove is connecting to Exchange Server..."
         Viewpoint::EWS::EWS.endpoint = @url
         Viewpoint::EWS::EWS.set_auth @username, @password
-      end      
+      end
     end
 
-    class Action 
+    class Action
       #
       # This class handles the action part of Rockdove for mail retrieval, parsing and watch on the mailbox based on the interval.
-      # 
-
+      #
       #Rockdove::Follow::Action.watch do |parsed_message|
       #  Post.process_this_mail(parsed_message)
       #end
-
       def self.watch
         loop do
           begin
             Rockdove.logger.info "Rockdove on watch for new mail ... "
             mail_retriever = Rockdove::Follow::Action.new()
             parsed_message = mail_retriever.retrieve_mail()
-            if parsed_message 
-              yield(parsed_message) 
+            if parsed_message
+              yield(parsed_message)
               Rockdove::Follow::PackUp.new().process
             end
           rescue Exception => e
@@ -77,16 +75,16 @@ module Rockdove
         return false unless fetched_mail
         puts fetched_mail.to_yaml
         Rockdove::ExchangeMail.new(fetched_mail)
-      end      
+      end
 
-      def fetch_from_box           
+      def fetch_from_box
         mail_stack = inbox.find_items
-        return nil if mail_stack.empty?        
+        return nil if mail_stack.empty?
         inbox.get_item(mail_stack.first.id)
       end
 
       def inbox
-        incoming_folder = Rockdove::Follow::Ready.incoming_folder 
+        incoming_folder = Rockdove::Follow::Ready.incoming_folder
         begin
           Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
         rescue
@@ -108,7 +106,7 @@ module Rockdove
           item.delete!
           Rockdove.logger.info "Rockdove delivered the Mail..."
         else
-          item.move!(to_folder)  
+          item.move!(to_folder)
           Rockdove.logger.info "Rockdove delivered & archived the Mail..."
         end
       end
