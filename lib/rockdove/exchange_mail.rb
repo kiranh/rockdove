@@ -9,8 +9,8 @@ module Rockdove
     def initialize(incoming_email)
       @from = incoming_email.from.email_address
       Rockdove.logger.info "Rockdove received the mail from #{@from}..."
-      @to = incoming_email.to_recipients.collect &:email_address if incoming_email.to_recipients.length > 0
-      @cc = incoming_email.cc_recipients.collect &:email_address if incoming_email.cc_recipients.length > 0
+      @to = incoming_email.to_recipients.collect &:email_address if incoming_email.to_recipients
+      @cc = incoming_email.cc_recipients.collect &:email_address if incoming_email.cc_recipients
       @subject = incoming_email.subject.strip
       @body = Rockdove::DoveParser.new().parse_mail(incoming_email.body, incoming_email.body_type) if incoming_email.body.length > 0
       @datetime_sent = incoming_email.date_time_sent
