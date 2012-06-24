@@ -39,7 +39,7 @@ module Rockdove
       end
 
       def self.connect
-        Rockdove.logger.info "Hang On ! Rockdove is connecting to Exchange Server..."
+        Rockdove.logger.info "Rockdove is trying to connect to Exchange Server..."
         Viewpoint::EWS::EWS.endpoint = @url
         Viewpoint::EWS::EWS.set_auth @username, @password
       end
@@ -73,25 +73,35 @@ module Rockdove
       def retrieve_mail
         fetched_mail = fetch_from_box
         return false unless fetched_mail
-        puts fetched_mail.to_yaml
+        Rockdove.logger.info "Rockdove collected the mail"
         Rockdove::ExchangeMail.new(fetched_mail)
       end
 
       def fetch_from_box
-        mail_stack = inbox.find_items
+        return nil if inbox.nil?
+        mail_stack = inbox.find_items 
         return nil if mail_stack.empty?
         inbox.get_item(mail_stack.first.id)
       end
 
       def inbox
-        incoming_folder = Rockdove::Follow::Ready.incoming_folder
-        begin
-          Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
-        rescue
-          Rockdove.logger.info "Reconnecting to the Exchange Server & Fetching the Mail now..."
-          Rockdove::Follow::Ready.connect
-          Viewpoint::EWS::Folder.get_folder_by_name(incoming_folder)
-        end
+        @incoming_folder = Rockdove::Follow::Ready.incoming_folder
+        Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder)
+      rescue
+        reconnect_and_raise_error
+      end
+
+      def reconnect_and_raise_error
+        Rockdove.logger.info "Reconnecting to the Exchange Server & Fetching the Mail now..."
+        Rockdove::Follow::Ready.connect
+        Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder) 
+      rescue Viewpoint::EWS::EwsError
+        send_connection_failed_message
+      end
+
+      def send_connection_failed_message
+        Rockdove.logger.info "Unable to connect to the Exchange Server"
+        return nil
       end
     end
 

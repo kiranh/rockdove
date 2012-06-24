@@ -38,7 +38,7 @@ describe "FetchIncomingMail" do
     #@mail_retriever.should_receive(:fetch_from_box).and_return(mail)       
     #@mail_retriever.fetch_from_box.should == mail
     #@mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)     
-    puts Rockdove::Follow::Action.new().retrieve_mail().inspect
+    puts Rockdove::Follow::Action.new().retrieve_mail().to_recipients.inspect
   end
 
   def get_mail(name)
