@@ -71,7 +71,8 @@ module Rockdove
       end
 
       def retrieve_mail
-        fetched_mail = fetch_from_box        
+        fetched_mail = fetch_from_box 
+        # puts fetched_mail.to_yaml       
         return no_mail_alert unless fetched_mail          
         Rockdove.logger.info "Rockdove collected the mail."
         Rockdove::ExchangeMail.new(fetched_mail)
