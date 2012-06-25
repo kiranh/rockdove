@@ -13,8 +13,8 @@ end
 describe "FetchIncomingMail" do
 
   before(:each) do
-    #Rockdove::Follow::Ready.stub!(:connect).and_return(:true)
-    #@mail_retriever = Rockdove::Follow::Action.new()
+    Rockdove::Follow::Ready.stub!(:connect).and_return(:true)
+    @mail_retriever = Rockdove::Follow::Action.new()
   end
   
   it "should validate the exchange server info provided" do
@@ -25,30 +25,31 @@ describe "FetchIncomingMail" do
   end
 
   it "should connect to the Exchange Server" do
-    #Rockdove::Follow::Ready.connect.should == :true
+    Rockdove::Follow::Ready.connect.should == :true
   end
 
   it "is trying to fetch mail when there is no incoming mail" do
-    #mail_retriever.should_receive(:retrieve_mail).and_return(false)
-    #mail_retriever.retrieve_mail().should == false
+    @mail_retriever.should_receive(:inbox).and_return(nil)
+    @mail_retriever.retrieve_mail() == nil
   end
 
-  it "is trying to fetch a new mail" do
-    #mail = get_mail("sample_new_mail")
-    #@mail_retriever.should_receive(:fetch_from_box).and_return(mail)       
-    #@mail_retriever.fetch_from_box.should == mail
-    #@mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)     
-    puts Rockdove::Follow::Action.new().retrieve_mail().has_attachments?.inspect
+  it "is trying to fetch a new forwarded mail" do
+    mail = get_mail("forwarded_mail")
+    @mail_retriever.should_receive(:fetch_from_box).and_return(mail)       
+    @mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)
+    @mail_retriever.should_receive(:fetch_from_box).and_return(mail)       
+    @mail_retriever.retrieve_mail.body.should == "FYI"    
   end
 
   def get_mail(name)
-    mail = Hash2ClassObject.new(YAML.load(email(name.to_sym)))
-    mail.from = Hash2ClassObject.new(mail.from)
-    mail
+    YAML.load(email(name.to_sym))
+    #mail = Hash2ClassObject.new(YAML.load(email(name.to_sym)))
+    #mail.from = Hash2ClassObject.new(mail.from)
+    #mail
   end
 
   def email(name)
-    IO.read EMAIL_FIXTURE_PATH.join("#{name}.eml").to_s
+    IO.read EMAIL_FIXTURE_PATH.join("#{name}.yml").to_s
   end
 
    #context "parse the mail" do

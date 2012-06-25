@@ -31,17 +31,17 @@ module Rockdove
       end
 
       def self.ews_move_folder( value )
-        @move_folder = value || 'Archive'
+        @move_folder = value 
       end
 
       def self.ews_watch_interval( value )
         @watch_interval = value || 60
       end
 
-      def self.connect
-        Rockdove.logger.info "Rockdove is trying to connect to Exchange Server..."
+      def self.connect        
         Viewpoint::EWS::EWS.endpoint = @url
         Viewpoint::EWS::EWS.set_auth @username, @password
+        Rockdove.logger.info "Rockdove connected to Exchange Server."
       end
     end
 
@@ -55,7 +55,7 @@ module Rockdove
       def self.watch
         loop do
           begin
-            Rockdove.logger.info "Rockdove on watch for new mail ... "
+            Rockdove.logger.info "Rockdove on watch for new mail..."
             mail_retriever = Rockdove::Follow::Action.new()
             parsed_message = mail_retriever.retrieve_mail()
             if parsed_message
@@ -71,14 +71,19 @@ module Rockdove
       end
 
       def retrieve_mail
-        fetched_mail = fetch_from_box
-        return false unless fetched_mail
-        Rockdove.logger.info "Rockdove collected the mail"
+        fetched_mail = fetch_from_box        
+        return no_mail_alert unless fetched_mail          
+        Rockdove.logger.info "Rockdove collected the mail."
         Rockdove::ExchangeMail.new(fetched_mail)
       end
 
-      def fetch_from_box
-        return nil if inbox.nil?
+      def no_mail_alert
+        Rockdove.logger.info "Rockdove observed no mail yet."
+        nil       
+      end
+
+      def fetch_from_box        
+        return nil if inbox.nil? || inbox == true
         mail_stack = inbox.find_items 
         return nil if mail_stack.empty?
         inbox.get_item(mail_stack.first.id)
@@ -86,13 +91,13 @@ module Rockdove
 
       def inbox
         @incoming_folder = Rockdove::Follow::Ready.incoming_folder
-        Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder)
+        return Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder)       
       rescue
         reconnect_and_raise_error
       end
 
       def reconnect_and_raise_error
-        Rockdove.logger.info "Reconnecting to the Exchange Server & Fetching the Mail now..."
+        Rockdove.logger.info "Reconnecting to the Exchange Server & Fetching the mail now."
         Rockdove::Follow::Ready.connect
         Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder) 
       rescue Viewpoint::EWS::EwsError
@@ -100,7 +105,7 @@ module Rockdove
       end
 
       def send_connection_failed_message
-        Rockdove.logger.info "Unable to connect to the Exchange Server"
+        Rockdove.logger.info "Rockdove unable to connect to the Exchange Server"
         return nil
       end
     end
@@ -114,10 +119,10 @@ module Rockdove
         to_folder = Rockdove::Follow::Ready.move_folder
         if to_folder.blank?
           item.delete!
-          Rockdove.logger.info "Rockdove delivered the Mail..."
+          Rockdove.logger.info "Rockdove delivered the mail."
         else
           item.move!(to_folder)
-          Rockdove.logger.info "Rockdove delivered & archived the Mail..."
+          Rockdove.logger.info "Rockdove delivered & archived the mail."
         end
       end
     end

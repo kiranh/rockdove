@@ -1,0 +1,133 @@
+--- !ruby/object:Viewpoint::EWS::Message
+ews_methods:
+- :item_id
+- :subject
+- :sensitivity
+- :body
+- :body_type
+- :size
+- :has_attachments?
+- :date_time_sent
+- :date_time_created
+- :to_recipients
+- :from
+- :is_read?
+- :is_read_receipt_requested?
+ews_methods_undef:
+- :item_class
+- :importance
+- :in_reply_to
+- :unique_body
+- :display_cc
+- :display_to
+- :culture
+- :last_modified_name
+- :mime_content
+- :web_client_read_form_query_string
+- :web_client_edit_form_query_string
+- :reminder_minutes_before_start
+- :is_submitted?
+- :is_draft?
+- :is_from_me?
+- :is_resend?
+- :is_unmodified?
+- :reminder_is_set?
+- :is_associated?
+- :date_time_received
+- :reminder_due_by
+- :last_modified_time
+- :conversation_index
+- :conversation_topic
+- :internet_message_id
+- :references
+- :cc_recipients
+- :bcc_recipients
+- :reply_to
+- :sender
+- :received_by
+- :received_representing
+- :is_response_requested?
+- :is_delivery_receipt_requested?
+ews_item:
+  :item_id:
+    :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBWAAA=
+    :change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACChW
+  :parent_folder_id:
+    :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
+    :change_key: AQAAAA==
+  :subject:
+    :text: ! 'Fwd: Ashish Prasad liked your post'
+  :sensitivity:
+    :text: Normal
+  :body:
+    :body_type: HTML
+    :text: ! "<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html;
+      charset=utf-8\">\r\n</head>\r\n<body>\r\nFYI<br>\r\n<br>\r\n<div class=\"gmail_quote\">----------
+      Forwarded message ----------<br>\r\nFrom: <b class=\"gmail_sendername\">Ashish
+      Prasad (SocialTango*)</b> <span dir=\"ltr\">\r\n&lt;<a href=\"mailto:no-reply-socialtango@cognizant.com\">no-reply-socialtango@cognizant.com</a>&gt;</span><br>\r\nDate:
+      Mon, Jun 25, 2012 at 12:59 PM<br>\r\nSubject: Ashish Prasad liked your post<br>\r\nTo:
+      Kiran Bosetti &lt;<a href=\"mailto:Kiran.Bosetti@cognizant.com\">Kiran.Bosetti@cognizant.com</a>&gt;<br>\r\n<br>\r\n<br>\r\n<div
+      style=\"font-family:'Trebuchet MS'\">\r\n<div style=\"\">\r\n<div style=\"border-left:1px
+      #bcbcbc solid;border-right:1px #bcbcbc solid;width:750px\">\r\n<div style=\"background-color:#173f68;border-bottom:1px
+      solid #040000;color:#cccccc;padding:6px 0;width:100%;min-height:32px\">\r\n<img
+      src=\"https://csocial.cognizant.com//images/logo_small.png\"> </div>\r\n<div
+      style=\"font-size:13px;margin-left:12px\">\r\n<p style=\"margin-left:7%;width:600px;text-align:justify;font-family:'Trebuchet
+      MS';font-size:14px;word-wrap:break-word\">\r\nAshish Prasad liked your post:
+      Many Many Happy Returns of the day to the Twins, Mouli TR and Karthik Rajashekaran
+      !!! #birthdays\r\n<br>\r\n</p>\r\n<a href=\"https://csocial.cognizant.com/posts/19776\"
+      style=\"color:#1e496a;font-size:13px;font-weight:bold;word-spacing:3px;text-align:center;margin-left:50px;width:200px;min-height:40px;text-decoration:none;padding:0.25em
+      0.5em 0.3em 0.5em\" target=\"_blank\">View\r\n post &gt; </a>\r\n<p></p>\r\n</div>\r\n<div><img
+      src=\"https://csocial.cognizant.com//images/notifiers/notifier_layout/GTO_Logo_small.png\"
+      alt=\"cognizant\">\r\n<img src=\"https://csocial.cognizant.com//images/notifiers/notifier_layout/AW_Logo_small.png\"
+      alt=\"cognizant\">\r\n</div>\r\n<div style=\"margin-top:2%;background-color:#d2dde4;text-align:center;font-size:11px;word-spacing:1px\">\r\nThis
+      email was sent by SocialTango. If you'd like to stop getting emails like this,\r\n<a
+      href=\"https://csocial.cognizant.com/user/edit\" target=\"_blank\">click here</a>
+      to change your notification settings.\r\n</div>\r\n</div>\r\n</div>\r\nThis
+      e-mail and any files transmitted with it are for the sole use of the intended
+      recipient(s) and may contain confidential and privileged information. If you
+      are not the intended recipient(s), please reply to the sender and destroy all
+      copies of the original\r\n message. Any unauthorized review, use, disclosure,
+      dissemination, forwarding, printing or copying of this email, and/or any action
+      taken in reliance on the contents of this e-mail is strictly prohibited and
+      may be unlawful.\r\n</div>\r\n</div>\r\n<br>\r\n<br clear=\"all\">\r\n<div><br>\r\n</div>\r\n--
+      <br>\r\n<font face=\"comic sans ms,sans-serif\">Thanks &amp; Regards,</font><br>\r\n<font
+      face=\"comic sans ms,sans-serif\">&nbsp; </font><font face=\"comic sans ms,sans-serif\"><img
+      src=\"http://etc.usf.edu/clipart/2400/2430/k_1_lg.gif\" height=\"51\" width=\"51\"></font><font
+      face=\"comic sans ms,sans-serif\">iran</font><font face=\"comic sans ms,sans-serif\">\r\n
+      Bosetti</font><br>\r\n<font face=\"comic sans ms,sans-serif\">&quot;Th</font><font
+      face=\"comic sans ms,sans-serif\">e Journey Goes on...&quot;<br>\r\nCatch me
+      <a href=\"https://csocial.cognizant.com/u/185305\" target=\"_blank\">@socialtango</a><br>\r\n</font><br>\r\n</body>\r\n</html>\r\n"
+  :size:
+    :text: '3863'
+  :date_time_sent:
+    :text: '2012-06-25T11:32:50Z'
+  :date_time_created:
+    :text: '2012-06-25T11:32:53Z'
+  :has_attachments:
+    :text: 'false'
+  :to_recipients:
+    :mailbox:
+      :name:
+        :text: socialtango
+      :email_address:
+        :text: socialtango@cognizant.com
+      :routing_type:
+        :text: SMTP
+  :is_read_receipt_requested:
+    :text: 'false'
+  :from:
+    :mailbox:
+      :name:
+        :text: Bosetti, Kiran (Cognizant)
+      :email_address:
+        :text: Kiran.Bosetti@cognizant.com
+      :routing_type:
+        :text: SMTP
+  :is_read:
+    :text: 'true'
+shallow: true
+item_id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBWAAA=
+change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACChW
+text_only: false
+updates: {}
+parent_folder_id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
