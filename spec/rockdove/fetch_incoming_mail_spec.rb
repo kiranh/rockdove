@@ -39,6 +39,14 @@ describe "FetchIncomingMail" do
     @mail_retriever.retrieve_mail.body.should == "Hi, This is a new post"    
   end
 
+  it "is trying to fetch a new replied mail" do
+    mail = get_mail("replied_mail")
+    @mail_retriever.should_receive(:fetch_from_box).and_return(mail)       
+    @mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)
+    @mail_retriever.should_receive(:fetch_from_box).and_return(mail)       
+    @mail_retriever.retrieve_mail.body.should == "This is a replied post from outlook"    
+  end
+
   #it "should connect to the Exchange Server" do
   #  puts Rockdove::Follow::Action.new().retrieve_mail.body.inspect
   #end

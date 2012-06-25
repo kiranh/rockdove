@@ -1,0 +1,103 @@
+--- !ruby/object:Viewpoint::EWS::Message
+ews_methods:
+- :item_id
+- :subject
+- :sensitivity
+- :body
+- :body_type
+- :size
+- :has_attachments?
+- :date_time_sent
+- :date_time_created
+- :to_recipients
+- :from
+- :is_read?
+- :is_read_receipt_requested?
+- :is_delivery_receipt_requested?
+ews_methods_undef:
+- :item_class
+- :importance
+- :in_reply_to
+- :unique_body
+- :display_cc
+- :display_to
+- :culture
+- :last_modified_name
+- :mime_content
+- :web_client_read_form_query_string
+- :web_client_edit_form_query_string
+- :reminder_minutes_before_start
+- :is_submitted?
+- :is_draft?
+- :is_from_me?
+- :is_resend?
+- :is_unmodified?
+- :reminder_is_set?
+- :is_associated?
+- :date_time_received
+- :reminder_due_by
+- :last_modified_time
+- :conversation_index
+- :conversation_topic
+- :internet_message_id
+- :references
+- :cc_recipients
+- :bcc_recipients
+- :reply_to
+- :sender
+- :received_by
+- :received_representing
+- :is_response_requested?
+ews_item:
+  :item_id:
+    :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBZAAA=
+    :change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACDSJ
+  :parent_folder_id:
+    :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
+    :change_key: AQAAAA==
+  :subject:
+    :text: ! 'RE: New Post'
+  :sensitivity:
+    :text: Normal
+  :body:
+    :body_type: Text
+    :text: ! "This is a replied post from outlook\r\n________________________________________\r\nFrom:
+      lastname, User (ewsdomain)\r\nSent: Monday, June 25, 2012 6:26 PM\r\nTo: network\r\nSubject:
+      New Post\r\n\r\nHi, This is a new post\r\n\r\n--\r\nThanks & Regards,\r\n  [http://etc.usf.edu/clipart/2400/2430/k_1_lg.gif]
+      iran lastname\r\n\"The Journey Goes on...\"\r\nCatch me @network<https://socio.ewsdomain.com/u/505>\r\n\r\n"
+  :size:
+    :text: '1658'
+  :date_time_sent:
+    :text: '2012-06-25T13:09:07Z'
+  :date_time_created:
+    :text: '2012-06-25T13:09:08Z'
+  :has_attachments:
+    :text: 'false'
+  :to_recipients:
+    :mailbox:
+      :name:
+        :text: network
+      :email_address:
+        :text: network@ewsdomain.com
+      :routing_type:
+        :text: SMTP
+  :is_read_receipt_requested:
+    :text: 'false'
+  :is_delivery_receipt_requested:
+    :text: 'false'
+  :from:
+    :mailbox:
+      :name:
+        :text: network
+      :email_address:
+        :text: network@ewsdomain.com
+      :routing_type:
+        :text: SMTP
+  :is_read:
+    :text: 'true'
+shallow: true
+item_id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBZAAA=
+change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACDSJ
+text_only: false
+updates: {}
+parent_folder_id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
