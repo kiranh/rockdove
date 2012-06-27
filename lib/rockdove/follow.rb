@@ -5,10 +5,7 @@ module Rockdove
       class << self
         attr_accessor :url, :username, :password, :incoming_folder, :move_folder, :watch_interval
       end
-      #
-      # This class handles the configuration ready part of Rockdove.
-      # It takes in the Exchange Server details along with authentication and the folder details.
-      #
+    
       def self.configure( &block )
         block.call( self )
         connect
@@ -46,26 +43,20 @@ module Rockdove
     end
 
     class Action
-      #
-      # This class handles the action part of Rockdove for mail retrieval, parsing and watch on the mailbox based on the interval.
-      #
-      #Rockdove::Follow::Action.watch do |parsed_message|
-      #  Post.process_this_mail(parsed_message)
-      #end
       def self.watch
         loop do
           begin
             Rockdove.logger.info "Rockdove on watch for new mail..."
             mail_retriever = Rockdove::Follow::Action.new()
-            parsed_message = mail_retriever.retrieve_mail()
-            if parsed_message
-              yield(parsed_message)
-              Rockdove::Follow::PackUp.new().process
+            parsed_mail = mail_retriever.retrieve_mail()
+            if parsed_mail
+              yield(parsed_mail)
+              Rockdove::Follow::PackUp.new().process(mail_retriever)
             end
           rescue Exception => e
             Rockdove.logger.info(e)
           ensure
-            sleep(Rockdove.watch_interval)
+            sleep(Rockdove::Follow::Ready.watch_interval)
           end
         end
       end
@@ -111,17 +102,15 @@ module Rockdove
     end
 
     class PackUp
-      #
-      # This class handles the packup part of Rockdove for the final process of archiving or deleting the processed mail.
-      #
-      def process
-        item = Rockdove::Follow::Action.raw_item
+      def process(mail_retriever)
+        item = mail_retriever.fetch_from_box
         to_folder = Rockdove::Follow::Ready.move_folder
         if to_folder.blank?
           item.delete!
           Rockdove.logger.info "Rockdove delivered the mail."
         else
-          item.move!(to_folder)
+          destination = Viewpoint::EWS::Folder.get_folder_by_name(to_folder)
+          item.move!(destination)
           Rockdove.logger.info "Rockdove delivered & archived the mail."
         end
       end
