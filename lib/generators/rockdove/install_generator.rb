@@ -5,7 +5,7 @@ module Rockdove
       
       desc "This generator copies the rockdove_server script file to your rails project"
       def copy_script
-        copy_file "rockdove_server", "script/rockdove_server"
+        copy_file "rockdove_server.rb", "script/rockdove_server.rb"
       end
     end
   end
