@@ -54,23 +54,19 @@
 :has_attachments:
   :text: 'false'
 :to_recipients:
-  :mailbox:
-    :name:
-      :text: network
-    :email_address:
-      :text: network@ewsdomain.com
-    :routing_type:
-      :text: SMTP
+  :name:
+    :text: network
+  :email_address: network@ewsdomain.com
+  :routing_type:
+    :text: SMTP
 :is_read_receipt_requested:
   :text: 'false'
 :from:
-  :mailbox:
-    :name:
-      :text: LastName, User (ewsdomain)
-    :email_address:
-      :text: User.LastName@ewsdomain.com
-    :routing_type:
-      :text: SMTP
+  :name:
+    :text: LastName, User (ewsdomain)
+  :email_address: User.LastName@ewsdomain.com
+  :routing_type:
+    :text: SMTP
 :is_read:
   :text: 'true'
 shallow: true

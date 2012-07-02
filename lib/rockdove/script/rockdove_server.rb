@@ -31,7 +31,7 @@ class RockdoveServer
   end
 
   def process_rockdove_job
-    Rockdove::Follow::Action.watch do |parsed_mail|
+    Rockdove::Follow::CollectMail.watch do |parsed_mail|
       begin
         #Model.method(parsed_mail)
       rescue Exception => e

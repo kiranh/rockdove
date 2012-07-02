@@ -38,26 +38,29 @@ module Rockdove
       def self.connect        
         Viewpoint::EWS::EWS.endpoint = @url
         Viewpoint::EWS::EWS.set_auth @username, @password
-        Rockdove.logger.info "Rockdove connected to Exchange Server."
       end
     end
 
-    class Action
+    class CollectMail
       def self.watch
         loop do
           begin
-            Rockdove.logger.info "Rockdove on watch for new mail..."
-            mail_retriever = Rockdove::Follow::Action.new()
-            parsed_mail = mail_retriever.retrieve_mail()
-            if parsed_mail
-              yield(parsed_mail)
-              Rockdove::Follow::PackUp.new().process(mail_retriever)
-            end
+            mail_retriever = Rockdove::Follow::CollectMail.new()
+            send_rockdove_to_watch_mail(mail_retriever)
           rescue Exception => e
             Rockdove.logger.info(e)
           ensure
             sleep(Rockdove::Follow::Ready.watch_interval)
           end
+        end
+      end
+
+      def self.send_rockdove_to_watch_mail(mail_retriever)
+        Rockdove.logger.info "Rockdove on watch for new mail..."
+        parsed_mail = mail_retriever.retrieve_mail
+        if parsed_mail
+          yield(parsed_mail)
+          Rockdove::Follow::ArchiveMail.new().process(mail_retriever)
         end
       end
 
@@ -77,7 +80,7 @@ module Rockdove
         return nil if inbox.nil? || inbox == true
         mail_stack = inbox.find_items 
         return nil if mail_stack.empty?
-        inbox.get_item(mail_stack.first.id)
+        inbox.get_item(mail_stack.last.id)
       end
 
       def inbox
@@ -101,7 +104,7 @@ module Rockdove
       end
     end
 
-    class PackUp
+    class ArchiveMail
       def process(mail_retriever)
         item = mail_retriever.fetch_from_box
         to_folder = Rockdove::Follow::Ready.move_folder
@@ -109,10 +112,13 @@ module Rockdove
           item.delete!
           Rockdove.logger.info "Rockdove delivered the mail."
         else
-          destination = Viewpoint::EWS::Folder.get_folder_by_name(to_folder)
-          item.move!(destination)
+          item.move!(destination(to_folder))
           Rockdove.logger.info "Rockdove delivered & archived the mail."
         end
+      end
+      
+      def destination(to_folder)
+        Viewpoint::EWS::Folder.get_folder_by_name(to_folder)
       end
     end
   end
