@@ -42,11 +42,11 @@ module Rockdove
     end
 
     class CollectMail
-      def self.watch
+      def self.watch &block
         loop do
           begin
             mail_retriever = Rockdove::Follow::CollectMail.new()
-            send_rockdove_to_watch_mail(mail_retriever)
+            send_rockdove_to_watch_mail(mail_retriever, &block)
           rescue Exception => e
             Rockdove.logger.info(e)
           ensure
@@ -55,11 +55,11 @@ module Rockdove
         end
       end
 
-      def self.send_rockdove_to_watch_mail(mail_retriever)
+      def self.send_rockdove_to_watch_mail(mail_retriever, &block)
         Rockdove.logger.info "Rockdove on watch for new mail..."
         parsed_mail = mail_retriever.retrieve_mail
         if parsed_mail
-          yield(parsed_mail)
+          block.call(parsed_mail)
           Rockdove::Follow::ArchiveMail.new().process(mail_retriever)
         end
       end
