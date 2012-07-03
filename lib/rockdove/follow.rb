@@ -66,8 +66,7 @@ module Rockdove
 
       def retrieve_mail
         fetched_mail = fetch_from_box    
-        return no_mail_alert unless fetched_mail          
-        Rockdove.logger.info "Rockdove collected the mail."
+        return no_mail_alert unless fetched_mail                  
         Rockdove::ExchangeMail.new(fetched_mail)
       end
 
@@ -80,7 +79,8 @@ module Rockdove
         return nil if inbox.nil? || inbox == true
         mail_stack = inbox.find_items 
         return nil if mail_stack.empty?
-        inbox.get_item(mail_stack.last.id)
+        Rockdove.logger.info "Rockdove collected the mail."
+        inbox.get_item(mail_stack.last.id)        
       end
 
       def inbox
