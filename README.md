@@ -6,10 +6,6 @@ Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby G
 
 ## Installation
 
-  gem install rockdove
-
-  or
-
   ```ruby
   #Under Gemfile
   gem 'rockdove', :require => false
@@ -30,13 +26,43 @@ Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby G
   ```
   You need to change the RailsModel into the one being used in your project that would require this behavior of Mail Processing for Exchange Web Services 1.0 and further process the mail as per the requirements in your project.
 
+  - And then you can run the script in console mode, `^C` will stop it, calling the stop method
+
+  ``` sh
+  $ ruby ./script/rockdove_server.rb start #from your project root
+  ```
+  - or run it daemonized, by default `./rockdove_server.log` and `./rockdove_server.pid` will be created
+
+  ``` sh
+  $ ruby ./script/rockdove_server.rb  -d start
+  ```
+
+  - you can stop the daemon, removing `./rockdove_server.pid` or
+  
+  ``` sh
+  $ ruby ./script/rockdove_server.rb stop
+  ```
+  ---
+
 ## Compatibility
 
-Tested on all Ruby versions with Travis CI.
+  Tested on all Ruby versions with Travis CI. 
+
+## Contributors
+
+ Welcome for any code optmizations or issue fixes or enhancements
+
+### Setup:
+
+  ```ruby
+    git clone git@github.com:kiranh/rockdove.git
+    cd rockdove
+    bundle exec rake # to run tests or bundle exec guard
+  ```
 
 ## Thanks
 
-To the Code Reviewer, [Hemant Kumar](http://github.com/gnufied).
+  To the Code Reviewer, [Hemant Kumar](http://github.com/gnufied).
 
 ## Copyright
 
