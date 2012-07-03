@@ -1,0 +1,47 @@
+--- !ruby/object:Rockdove::EWS
+:item_id:
+  :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBZAAA=
+  :change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACDSJ
+:parent_folder_id:
+  :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
+  :change_key: AQAAAA==
+:subject:
+  :text: ! 'RE: New Post'
+:sensitivity:
+  :text: Normal
+:body_type: Text
+:body: ! "I get proper rendering as well.\r\n\r\nOn Dec 16, 2011, at 12:47 PM, Corey Donohoe<reply@reply.github.com>wrote:\r\n\r\n> Was this caching related or fixed already?  I get proper rendering here.\r\n>\r\n> ![](https://img.skitch.com/20111216-m9munqjsy112yqap5cjee5wr6c.jpg)\r\n>\r\n> ---\r\n> Reply to this email directly or view it on GitHub:\r\n> https://github.com/github/github/issues/2278#issuecomment-3182418"
+:size:
+  :text: '1658'
+:date_time_sent:
+  :text: '2012-06-25T13:09:07Z'
+:date_time_created:
+  :text: '2012-06-25T13:09:08Z'
+:has_attachments:
+  :text: 'false'
+:to_recipients:
+  :mailbox:
+    :name:
+      :text: network
+    :email_address:
+      :text: network@ewsdomain.com
+    :routing_type:
+      :text: SMTP
+:is_read_receipt_requested:
+  :text: 'false'
+:is_delivery_receipt_requested:
+  :text: 'false'
+:from:
+  :name:
+    :text: network
+  :email_address: User.LastName@ewsdomain.com
+  :routing_type:
+    :text: SMTP
+:is_read:
+  :text: 'true'
+shallow: true
+item_id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBZAAA=
+change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACDSJ
+text_only: false
+updates: {}
+parent_folder_id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
