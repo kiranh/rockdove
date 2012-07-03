@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simplecov"
   
   s.add_runtime_dependency "raad" 
-  s.add_runtime_dependency "viewpoint"
+  s.add_runtime_dependency "viewpoint", "= 0.1.26"
   s.add_runtime_dependency "email_reply_parser"
   s.add_runtime_dependency "logger" 
 end
