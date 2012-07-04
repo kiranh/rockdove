@@ -1,45 +1,45 @@
 --- !ruby/object:Rockdove::EWS
-:item_id:
-  :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBZAAA=
-  :change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACDSJ
-:parent_folder_id:
-  :id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
-  :change_key: AQAAAA==
-:subject:
-  :text: ! 'RE: New Post'
-:sensitivity:
-  :text: Normal
-:body_type: Text
-:body: ! "This is a new post\r\nThanks & Regards,\r\n  [http://etc.usf.edu/clipart/2400/2430/k_1_lg.gif]
+item_id:
+  id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBZAAA=
+  change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACDSJ
+parent_folder_id:
+  id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
+  change_key: AQAAAA==
+subject:
+  text: ! 'RE: New Post'
+sensitivity:
+  text: Normal
+body_type: Text
+body: ! "This is a new post\r\nThanks & Regards,\r\n  [http://etc.usf.edu/clipart/2400/2430/k_1_lg.gif]
     iran lastname\r\n\"The Journey Goes on...\"\r\nCatch me @network<https://socio.ewsdomain.com/u/505>\r\n\r\n"
-:size:
-  :text: '1658'
-:date_time_sent:
-  :text: '2012-06-25T13:09:07Z'
-:date_time_created:
-  :text: '2012-06-25T13:09:08Z'
-:has_attachments:
-  :text: 'false'
-:to_recipients:
-  :mailbox:
-    :name:
-      :text: network
-    :email_address:
-      :text: network@ewsdomain.com
-    :routing_type:
-      :text: SMTP
-:is_read_receipt_requested:
-  :text: 'false'
-:is_delivery_receipt_requested:
-  :text: 'false'
-:from:
-  :name:
-    :text: network
-  :email_address: User.LastName@ewsdomain.com
-  :routing_type:
-    :text: SMTP
-:is_read:
-  :text: 'true'
+size:
+  text: '1658'
+date_time_sent:
+  text: '2012-06-25T13:09:07Z'
+date_time_created:
+  text: '2012-06-25T13:09:08Z'
+has_attachments:
+  text: 'false'
+to_recipients:
+  mailbox:
+    name:
+      text: network
+    email_address:
+      text: network@ewsdomain.com
+    routing_type:
+      text: SMTP
+is_read_receipt_requested:
+  text: 'false'
+is_delivery_receipt_requested:
+  text: 'false'
+from:
+  name:
+    text: network
+  email_address: User.LastName@ewsdomain.com
+  routing_type:
+    text: SMTP
+is_read:
+  text: 'true'
 shallow: true
 item_id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OABGAAAAAAD/yBU79ZvXQ6rBazqQ3s20BwBjikxovOdMSKu/0PoKjGIOAAADx+aDAAB8I0zOaEn9R5HiOejwHZwCAAAACCBZAAA=
 change_key: CQAAABYAAAB8I0zOaEn9R5HiOejwHZwCAAAACDSJ
