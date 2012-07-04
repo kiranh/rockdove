@@ -1,4 +1,8 @@
 module Rockdove
+
+  class RockdoveCollection < Array
+  end
+
   class ExchangeMail
     extend Forwardable
 

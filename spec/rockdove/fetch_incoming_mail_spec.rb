@@ -26,51 +26,51 @@ describe "FetchIncomingMail" do
 
   it "is trying to fetch mail when there is no incoming mail" do
     @mail_retriever.should_receive(:inbox).and_return(nil)
-    @mail_retriever.retrieve_mail.should == nil
+    @mail_retriever.inbox.should == nil
   end
 
   it "is trying to fetch a new forwarded mail" do
     mail = fetch_mail("forwarded_mail")
     mail.should be_an_instance_of(Rockdove::EWS) 
-    @mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)
-    @mail_retriever.retrieve_mail.body.should == "FYI"  
-    @mail_retriever.retrieve_mail.subject.should == mail.subject 
-    @mail_retriever.retrieve_mail.attachments.should == mail.attachments
-    @mail_retriever.retrieve_mail.date_time_created.should == mail.date_time_created
-    @mail_retriever.retrieve_mail.date_time_sent.should == mail.date_time_sent
+    @mail_retriever.retrieve_mail(mail).should be_an_instance_of(Rockdove::ExchangeMail)
+    @mail_retriever.retrieve_mail(mail).body.should == "FYI"  
+    @mail_retriever.retrieve_mail(mail).subject.should == mail.subject 
+    @mail_retriever.retrieve_mail(mail).attachments.should == mail.attachments
+    @mail_retriever.retrieve_mail(mail).date_time_created.should == mail.date_time_created
+    @mail_retriever.retrieve_mail(mail).date_time_sent.should == mail.date_time_sent
     convert_from_hash(mail)
-    @mail_retriever.retrieve_mail.from.should == "User.LastName@ewsdomain.com" 
+    @mail_retriever.retrieve_mail(mail).from.should == "User.LastName@ewsdomain.com" 
   end
 
   it "is trying to fetch a new mail" do
     mail = fetch_mail("new_mail")  
     mail.should be_an_instance_of(Rockdove::EWS) 
-    @mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)   
-    @mail_retriever.retrieve_mail.body.should == "Hi, This is a new post"  
-    @mail_retriever.retrieve_mail.subject.should == mail.subject 
-    @mail_retriever.retrieve_mail.attachments.should == mail.attachments
-    @mail_retriever.retrieve_mail.date_time_created.should == mail.date_time_created
-    @mail_retriever.retrieve_mail.date_time_sent.should == mail.date_time_sent
+    @mail_retriever.retrieve_mail(mail).should be_an_instance_of(Rockdove::ExchangeMail)   
+    @mail_retriever.retrieve_mail(mail).body.should == "Hi, This is a new post"  
+    @mail_retriever.retrieve_mail(mail).subject.should == mail.subject 
+    @mail_retriever.retrieve_mail(mail).attachments.should == mail.attachments
+    @mail_retriever.retrieve_mail(mail).date_time_created.should == mail.date_time_created
+    @mail_retriever.retrieve_mail(mail).date_time_sent.should == mail.date_time_sent
     convert_from_hash(mail)
-    @mail_retriever.retrieve_mail.from.should == "User.LastName@ewsdomain.com"  
+    @mail_retriever.retrieve_mail(mail).from.should == "User.LastName@ewsdomain.com"  
   end
 
   it "is trying to fetch a new replied mail" do
     mail = fetch_mail("replied_mail")
     mail.should be_an_instance_of(Rockdove::EWS) 
-    @mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)
-    @mail_retriever.retrieve_mail.body.should == "This is a replied post from outlook"
-    @mail_retriever.retrieve_mail.subject.should == mail.subject 
-    @mail_retriever.retrieve_mail.attachments.should == mail.attachments
-    @mail_retriever.retrieve_mail.date_time_created.should == mail.date_time_created
-    @mail_retriever.retrieve_mail.date_time_sent.should == mail.date_time_sent 
+    @mail_retriever.retrieve_mail(mail).should be_an_instance_of(Rockdove::ExchangeMail)
+    @mail_retriever.retrieve_mail(mail).body.should == "This is a replied post from outlook"
+    @mail_retriever.retrieve_mail(mail).subject.should == mail.subject 
+    @mail_retriever.retrieve_mail(mail).attachments.should == mail.attachments
+    @mail_retriever.retrieve_mail(mail).date_time_created.should == mail.date_time_created
+    @mail_retriever.retrieve_mail(mail).date_time_sent.should == mail.date_time_sent 
     convert_from_hash(mail)
-    @mail_retriever.retrieve_mail.from.should == "User.LastName@ewsdomain.com"   
+    @mail_retriever.retrieve_mail(mail).from.should == "User.LastName@ewsdomain.com"   
   end
 
   it "should archive the mail if user assigns ews move folder" do
     mail = fetch_mail("new_mail") 
-    @mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)
+    @mail_retriever.retrieve_mail(mail).should be_an_instance_of(Rockdove::ExchangeMail)
     stub_destination_point
     @archive.process(@mail_retriever).should == true
   end
@@ -78,7 +78,7 @@ describe "FetchIncomingMail" do
   it "should delete the mail if user doesn't assign ews move folder" do
     @connection.move_folder = nil
     mail = fetch_mail("new_mail") 
-    @mail_retriever.retrieve_mail.should be_an_instance_of(Rockdove::ExchangeMail)
+    @mail_retriever.retrieve_mail(mail).should be_an_instance_of(Rockdove::ExchangeMail)
     @archive.process(@mail_retriever).should == true
   end
 
@@ -101,6 +101,10 @@ describe "FetchIncomingMail" do
      true
     end
     output.should == true
+  end
+
+  it "should collect all letters" do
+    #puts Rockdove::Follow::CollectMail.new.group_of_mails.inspect
   end
 
   def stub_fetch_from_box(mail)

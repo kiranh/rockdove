@@ -38,17 +38,27 @@ module Rockdove
       def self.connect        
         Viewpoint::EWS::EWS.endpoint = @url
         Viewpoint::EWS::EWS.set_auth @username, @password
+        Viewpoint::EWS::EWS.instance
       end
     end
 
     class CollectMail
+      class << self
+        attr_accessor :mail_stack, :inbox_connection
+      end
+
+      def initialize(mail_stack = nil, inbox = nil)
+        @mail_stack = mail_stack
+        @inbox_connection = inbox
+      end
+
       def self.watch &block
         loop do
           begin
             mail_retriever = Rockdove::Follow::CollectMail.new()
             send_rockdove_to_watch_mail(mail_retriever, &block)
           rescue Exception => e
-            Rockdove.logger.info(e)
+            Rockdove.logger.error [e, *e.backtrace].join("\n")
           ensure
             sleep(Rockdove::Follow::Ready.watch_interval)
           end
@@ -57,16 +67,25 @@ module Rockdove
 
       def self.send_rockdove_to_watch_mail(mail_retriever, &block)
         Rockdove.logger.info "Rockdove on watch for new mail..."
-        parsed_mail = mail_retriever.retrieve_mail
-        if parsed_mail
-          block.call(parsed_mail)
-          Rockdove::Follow::ArchiveMail.new().process(mail_retriever)
+        parsed_mails = mail_retriever.group_of_mails
+        if parsed_mails
+          block.call(parsed_mails)
+          mail_retriever.process
         end
       end
 
-      def retrieve_mail
-        fetched_mail = fetch_from_box    
-        return no_mail_alert unless fetched_mail                  
+      def group_of_mails
+        return no_mail_alert unless fetch_from_box 
+        Rockdove.logger.info "Rockdove collected #{fetch_from_box.count} mails."
+        letters = RockdoveCollection.new
+        @inbox_connection = inbox unless @inbox_connection        
+        @mail_stack.reverse.each do |item|
+          letters << retrieve_mail(@inbox_connection.get_item(item.id)) 
+        end
+        letters
+      end
+
+      def retrieve_mail(fetched_mail)                
         Rockdove::ExchangeMail.new(fetched_mail)
       end
 
@@ -75,12 +94,12 @@ module Rockdove
         nil       
       end
 
-      def fetch_from_box        
-        return nil if inbox.nil? || inbox == true
-        mail_stack = inbox.find_items 
-        return nil if mail_stack.empty?
-        Rockdove.logger.info "Rockdove collected the mail."
-        inbox.get_item(mail_stack.last.id)        
+      def fetch_from_box 
+        @inbox_connection = inbox       
+        return nil if @inbox_connection.nil? || @inbox_connection == true
+        @mail_stack = @inbox_connection.find_items 
+        return nil if @mail_stack.empty?
+        @mail_stack    
       end
 
       def inbox
@@ -102,17 +121,21 @@ module Rockdove
         Rockdove.logger.info "Rockdove unable to connect to the Exchange Server"
         return nil
       end
-    end
+        
+      def process
+        @to_folder = Rockdove::Follow::Ready.move_folder
+        @mail_stack.each do |item|
+          archive(item)
+        end
+        @mail_stack = nil
+      end
 
-    class ArchiveMail
-      def process(mail_retriever)
-        item = mail_retriever.fetch_from_box
-        to_folder = Rockdove::Follow::Ready.move_folder
-        if to_folder.blank?
+      def archive(item)
+        if @to_folder.blank?
           item.delete!
           Rockdove.logger.info "Rockdove delivered the mail."
         else
-          item.move!(destination(to_folder))
+          item.move!(destination(@to_folder))
           Rockdove.logger.info "Rockdove delivered & archived the mail."
         end
       end
