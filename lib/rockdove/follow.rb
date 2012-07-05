@@ -43,6 +43,10 @@ module Rockdove
     end
 
     class CollectMail
+      UNDELIVERABLE = /Undeliverable/
+      AUTO_REPLY = /Automatic reply/
+      SPAM = /SPAM/
+
       class << self
         attr_accessor :mail_stack, :inbox_connection
       end
@@ -69,6 +73,7 @@ module Rockdove
         Rockdove.logger.info "Rockdove on watch for new mail..."
         parsed_mails = mail_retriever.group_of_mails
         if parsed_mails
+          puts parsed_mails.inspect
           block.call(parsed_mails)
           mail_retriever.process
         end
@@ -80,9 +85,24 @@ module Rockdove
         letters = RockdoveCollection.new
         @inbox_connection = inbox unless @inbox_connection        
         @mail_stack.reverse.each do |item|
-          letters << retrieve_mail(@inbox_connection.get_item(item.id)) 
+          unless match_and_ignore_bounce_types(item)
+            letters << retrieve_mail(@inbox_connection.get_item(item.id)) 
+          else
+            @mail_stack.delete(item)
+          end
         end
         letters
+      end
+
+      def match_and_ignore_bounce_types(item)
+        case item.subject 
+        when UNDELIVERABLE, AUTO_REPLY, SPAM
+          Rockdove.logger.info "Rockdove deletes this mail : #{item.subject}."
+          item.delete!
+          true
+        else  
+          false
+        end
       end
 
       def retrieve_mail(fetched_mail)                
