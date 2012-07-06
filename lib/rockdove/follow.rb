@@ -73,7 +73,6 @@ module Rockdove
         Rockdove.logger.info "Rockdove on watch for new mail..."
         parsed_mails = mail_retriever.group_of_mails
         if parsed_mails
-          puts parsed_mails.inspect
           block.call(parsed_mails)
           mail_retriever.process
         end
