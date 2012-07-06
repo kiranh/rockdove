@@ -5,7 +5,15 @@ require 'spec_helper.rb'
 module Rockdove
   class EWS
     attr_accessor :to_recipients, :date_time_created, :date_time_sent, :from
-    attr_accessor :subject, :body, :body_type, :attachments
+    attr_accessor :subject, :body, :body_type, :attachments, :id
+
+    def find_items(value = nil)
+      value
+    end
+
+    def self.id
+      111111
+    end
 
     def move!(destination)
       true

@@ -82,7 +82,7 @@ module Rockdove
         return no_mail_alert unless fetch_from_box 
         Rockdove.logger.info "Rockdove collected #{fetch_from_box.count} mails."
         letters = RockdoveCollection.new
-        @inbox_connection = inbox unless @inbox_connection        
+        @inbox_connection = inbox unless @inbox_connection     
         @mail_stack.reverse.each do |item|
           unless match_and_ignore_bounce_types(item)
             letters << retrieve_mail(@inbox_connection.get_item(item.id)) 

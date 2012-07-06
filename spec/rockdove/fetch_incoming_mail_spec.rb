@@ -5,7 +5,7 @@ describe "FetchIncomingMail" do
   before(:each) do
     @connection = Rockdove::Follow::Ready
     @mail_retriever = Rockdove::Follow::CollectMail.new()
-    @archive = Rockdove::Follow::ArchiveMail.new()
+    @test_server = Rockdove::EWS.new()
   end
   
   it "should validate the exchange server info provided" do
@@ -71,15 +71,20 @@ describe "FetchIncomingMail" do
   it "should archive the mail if user assigns ews move folder" do
     mail = fetch_mail("new_mail") 
     @mail_retriever.retrieve_mail(mail).should be_an_instance_of(Rockdove::ExchangeMail)
-    stub_destination_point
-    @archive.process(@mail_retriever).should == true
+    @mail_retriever.should_receive(:inbox).at_most(:twice).and_return(@test_server)
+    @test_server.should_receive(:find_items).at_most(:twice).and_return(Array(mail))
+    @test_server.should_receive(:get_item).and_return(mail)
+    @mail_retriever.group_of_mails
+    #stub_destination_point
+    #retriever.process.should == true
   end
 
   it "should delete the mail if user doesn't assign ews move folder" do
     @connection.move_folder = nil
     mail = fetch_mail("new_mail") 
-    @mail_retriever.retrieve_mail(mail).should be_an_instance_of(Rockdove::ExchangeMail)
-    @archive.process(@mail_retriever).should == true
+    parsed_mail = @mail_retriever.retrieve_mail(mail)
+    parsed_mail.should be_an_instance_of(Rockdove::ExchangeMail)
+    @mail_retriever.process.should == true
   end
 
   it "should parse the signature of the mail" do
@@ -108,7 +113,7 @@ describe "FetchIncomingMail" do
   end
 
   def stub_fetch_from_box(mail)
-    @mail_retriever.should_receive(:fetch_from_box).at_most(8).times.and_return(mail)
+    @mail_retriever.should_receive(:fetch_from_box).at_most(8).times.and_return(Array(mail))
   end
 
   def convert_from_hash(mail)
@@ -117,12 +122,12 @@ describe "FetchIncomingMail" do
   end
 
   def stub_destination_point
-    @archive.should_receive(:destination).and_return(true)
+    @mail_retriever.should_receive(:destination).and_return(true)
   end
 
   def fetch_mail(name)
     mail = get_mail(name)
-    stub_fetch_from_box(mail) 
+    #stub_fetch_from_box(mail) 
     mail
   end
 
