@@ -17,9 +17,7 @@ module Rockdove
 
     def choose_and_parse(content)
       content.gsub!(DASHES,"")      
-      case content
-        when SIGNATURE_REGEXP
-          content.gsub(SIGNATURE_REGEXP,"").strip! 
+      case content         
         when REPLY_REGEXP
           content.gsub(REPLY_REGEXP,"").strip!
         when FWD_REGEXP
@@ -27,6 +25,7 @@ module Rockdove
         else
           content
       end
+      content.gsub(SIGNATURE_REGEXP,"").strip! if content =~ SIGNATURE_REGEXP          
     end   
   end
 end
