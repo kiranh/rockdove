@@ -60,9 +60,9 @@ Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby G
     bundle exec rake # to run tests or bundle exec guard
   ```
 
-## Thanks
+## Acknowledgements
 
-  To Biju Shoolapani's abundant support and encouragement to fulfil his team's coding dreams. To the Code Reviewer, [Hemant Kumar](http://github.com/gnufied) and for the logo sketch, [Bahula](http://github.com/bahula)
+  To [Biju Shoolapani](https://github.com/bijushoolapani)'s support and encouragement for approval to fulfil his team's coding dreams. To the Code Reviewer, [Hemant Kumar](http://github.com/gnufied) and for the logo sketch, [Bahula](http://github.com/bahula).
 
 ## Copyright
 
