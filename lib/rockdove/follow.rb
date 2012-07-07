@@ -73,6 +73,7 @@ module Rockdove
         Rockdove.logger.info "Rockdove on watch for new mail..."
         parsed_mails = mail_retriever.group_of_mails
         if parsed_mails
+          Rockdove.logger.info "Rockdove calling App block"
           block.call(parsed_mails)
           mail_retriever.process
         end
@@ -80,12 +81,12 @@ module Rockdove
 
       def group_of_mails
         return no_mail_alert unless fetch_from_box 
-        Rockdove.logger.info "Rockdove collected #{fetch_from_box.count} mails."
+        Rockdove.logger.info "Rockdove collected #{fetch_from_box.count} mail(s)."
         letters = RockdoveCollection.new
         @inbox_connection = inbox unless @inbox_connection     
         @mail_stack.reverse.each do |item|
           unless match_and_ignore_bounce_types(item)
-            letters << retrieve_mail(@inbox_connection.get_item(item.id)) 
+            letters << retrieve_mail(@inbox_connection.get_item(item)) 
           else
             @mail_stack.delete(item)
           end
@@ -96,7 +97,7 @@ module Rockdove
       def match_and_ignore_bounce_types(item)
         case item.subject 
         when UNDELIVERABLE, AUTO_REPLY, SPAM
-          Rockdove.logger.info "Rockdove deletes this mail : #{item.subject}."
+          Rockdove.logger.info "Rockdove deleted this mail: #{item.subject}."
           item.delete!
           true
         else  
@@ -104,7 +105,7 @@ module Rockdove
         end
       end
 
-      def retrieve_mail(fetched_mail)                
+      def retrieve_mail(fetched_mail)               
         Rockdove::ExchangeMail.new(fetched_mail)
       end
 
@@ -152,7 +153,7 @@ module Rockdove
       def archive(item)
         if @to_folder.blank?
           item.delete!
-          Rockdove.logger.info "Rockdove delivered the mail."
+          Rockdove.logger.info "Rockdove delivered & deleted the mail."
         else
           item.move!(destination(@to_folder))
           Rockdove.logger.info "Rockdove delivered & archived the mail."

@@ -1,27 +1,30 @@
-# encoding: UTF-8
-
 require 'spec_helper.rb'
 
 module Rockdove
   class EWS
     attr_accessor :to_recipients, :date_time_created, :date_time_sent, :from
-    attr_accessor :subject, :body, :body_type, :attachments, :id
+    attr_accessor :subject, :body, :body_type, :attachments, :message
+
+    def response(value)
+      value
+    end
 
     def find_items(value = nil)
       value
     end
 
-    def self.id
-      111111
+    def get_item(item)
+      item
     end
 
     def move!(destination)
-      true
+      response("Archived the Mail Item")
     end
 
     def delete!
-      true
+      response("Deleted the Mail Item")
     end
+
   end
 end
 
@@ -35,7 +38,7 @@ class Hash2Class
   end
 end
 
-def get_mail(name)
+def fetch_mail(name)
   YAML.load(fetch_mail_path(name.to_sym))    
 end
 

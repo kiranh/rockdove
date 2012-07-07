@@ -5,12 +5,12 @@ item_id:
 parent_folder_id:
   id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
   change_key: AQAAAA==
-subject: New Post
+subject: "Undeliverable: New Post"
 sensitivity:
   text: Normal
 body_type: HTML
 body: ! "<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html;
-    charset=utf-8\">\r\n</head>\r\n<body>\r\nHi, This is a new post<br clear=\"all\">\r\n<div><br>\r\n</div>\r\n--
+    charset=utf-8\">\r\n</head>\r\n<body>Devlivery Failure to the recipient user.last@ewsdomain.com \r\nHi, This is a new post<br clear=\"all\">\r\n<div><br>\r\n</div>\r\n--
     <br>\r\n<font face=\"comic sans ms,sans-serif\">Thanks &amp; Regards,</font><br>\r\n<font
     face=\"comic sans ms,sans-serif\">&nbsp; </font><font face=\"comic sans ms,sans-serif\"><img
     src=\"http://etc.usf.edu/clipart/2400/2430/k_1_lg.gif\" height=\"51\" width=\"51\"></font><font

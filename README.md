@@ -62,7 +62,7 @@ Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby G
 
 ## Thanks
 
-  To the Code Reviewer, [Hemant Kumar](http://github.com/gnufied).
+  To Biju Shoolapani's abundant support and encouragement to fulfil his team's coding dreams. To the Code Reviewer, [Hemant Kumar](http://github.com/gnufied) and for the logo sketch, [Bahula](http://github.com/bahula)
 
 ## Copyright
 

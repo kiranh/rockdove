@@ -5,8 +5,7 @@ item_id:
 parent_folder_id:
   id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
   change_key: AQAAAA==
-subject:
-  text: ! 'RE: New Post'
+subject: 'RE: New Post'
 sensitivity:
   text: Normal
 body_type: Text
