@@ -86,7 +86,7 @@ module Rockdove
         @inbox_connection = inbox unless @inbox_connection     
         @mail_stack.reverse.each do |item|
           unless match_and_ignore_bounce_types(item)
-            letters << retrieve_mail(@inbox_connection.get_item(item)) 
+            letters << retrieve_mail(@inbox_connection.get_item(item.id)) 
           else
             @mail_stack.delete(item)
           end

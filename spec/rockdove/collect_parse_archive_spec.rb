@@ -23,8 +23,7 @@ describe "CollectParseArchive" do
   it "should archive the mail at the end of collection cycle if user assigns ews move folder" do
     mail = fetch_mail("new_mail") 
     handle_inbox(Array(mail))
-    result = @mail_retriever.group_of_mails
-    result.should be_an_instance_of(Rockdove::RockdoveCollection)
+    @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
     stub_destination_point 
     lambda { @mail_retriever.process }.should_not raise_error
     @log_stream.string.should =~ /Rockdove delivered & archived the mail/
@@ -34,8 +33,7 @@ describe "CollectParseArchive" do
     @connection.move_folder = nil
     mail = fetch_mail("new_mail") 
     handle_inbox(Array(mail))
-    result = @mail_retriever.group_of_mails
-    result.should be_an_instance_of(Rockdove::RockdoveCollection)
+    @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
     lambda { @mail_retriever.process }.should_not raise_error
     @log_stream.string.should =~ /Rockdove delivered & deleted the mail/
   end
@@ -65,16 +63,14 @@ describe "CollectParseArchive" do
   it "should handle undeliverable bounce type" do
     mail = fetch_mail("auto_reply_mail")
     handle_inbox(Array(mail))
-    result = @mail_retriever.group_of_mails
-    result.should be_an_instance_of(Rockdove::RockdoveCollection)
+    @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
     @log_stream.string.should include("Rockdove deleted this mail: Automatic reply: Out of Office Message")
   end
 
   it "should handle auto reply bounce type" do
     mail = fetch_mail("undeliverable_mail")
     handle_inbox(Array(mail))
-    result = @mail_retriever.group_of_mails
-    result.should be_an_instance_of(Rockdove::RockdoveCollection)
+    @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
     @log_stream.string.should include("Rockdove deleted this mail: Undeliverable: New Post")
   end
 
