@@ -3,8 +3,8 @@ require 'spec_helper.rb'
 describe "FetchIncomingMail" do
 
   before(:each) do
-    @connection = Rockdove::Follow::Ready
-    @mail_retriever = Rockdove::Follow::CollectMail.new()
+    @connection = Rockdove::Config
+    @mail_retriever = Rockdove::CollectMail.new()
     @log_stream = StringIO.new
     Rockdove.stub!(:logger).and_return(Logger.new(@log_stream))
   end

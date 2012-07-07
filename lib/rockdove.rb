@@ -1,7 +1,10 @@
 require 'viewpoint'
+require 'email_reply_parser'
 require "rockdove/version"
-require "rockdove/follow"
-require "rockdove/dove_parser"
+require "rockdove/config"
+require "rockdove/exchange_mail"
+require "rockdove/email_parser"
+require "rockdove/collect_mail"
 require "rockdove/dovetie" if defined?(Rails)
 
 module Rockdove

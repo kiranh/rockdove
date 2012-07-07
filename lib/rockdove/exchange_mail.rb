@@ -46,7 +46,7 @@ module Rockdove
     end
 
     def parse_it(mail_body, type)
-      Rockdove::DoveParser.new().parse_mail(mail_body, type) 
+      Rockdove::EmailParser.parse_mail(mail_body, type)
     end   
   end
 end

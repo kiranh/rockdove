@@ -3,8 +3,8 @@ require 'spec_helper.rb'
 describe "CollectParseArchive" do
 
   before(:each) do
-    @connection = Rockdove::Follow::Ready
-    @mail_retriever = Rockdove::Follow::CollectMail.new()
+    @connection = Rockdove::Config
+    @mail_retriever = Rockdove::CollectMail.new()
     @test_server = Rockdove::EWS.new()
     @log_stream = StringIO.new
     Rockdove.stub!(:logger).and_return(Logger.new(@log_stream))
@@ -30,7 +30,7 @@ describe "CollectParseArchive" do
   end
 
   it "should delete the mail at the end of collection cycle if user doesn't assign ews move folder" do
-    @connection.move_folder = nil
+    @connection.archive_folder = nil
     mail = fetch_mail("new_mail") 
     handle_inbox(Array(mail))
     @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
@@ -40,20 +40,20 @@ describe "CollectParseArchive" do
 
   it "should parse the signature of the mail" do
     mail = fetch_mail("mail_type_text") 
-    parsed_content = Rockdove::DoveParser.new.parse_mail(mail.body, mail.body_type)
+    parsed_content = Rockdove::EmailParser.parse_mail(mail.body, mail.body_type)
     parsed_content.should == "This is a new post"
   end 
 
   it "should parse the forwarded mail of gmail" do
     mail = fetch_mail("gmail_fwd_mail") 
-    parsed_content = Rockdove::DoveParser.new.parse_mail(mail.body, mail.body_type)
+    parsed_content = Rockdove::EmailParser.parse_mail(mail.body, mail.body_type)
     parsed_content.should == "I get proper rendering as well."
   end 
 
   it "should watch for new mail when called" do
     mail = fetch_mail("new_mail") 
     handle_inbox(Array(mail))
-    output = Rockdove::Follow::CollectMail.send_rockdove_to_watch_mail(@mail_retriever) do |mail|
+    output = @mail_retriever.send_rockdove_to_watch_mail do |mail|
      true
     end
     @log_stream.string.should include("Rockdove calling App block")
@@ -81,7 +81,7 @@ describe "CollectParseArchive" do
   end
 
   def stub_destination_point
-    @mail_retriever.should_receive(:destination).and_return(@connection.move_folder)
+    @mail_retriever.should_receive(:destination).and_return(@connection.archive_folder)
   end
 end
 

@@ -1,17 +1,21 @@
-require 'email_reply_parser'
 module Rockdove
-  class DoveParser
+  class EmailParser
     HTML_REGEXP = /<\/?[^>]*>/
     FWD_REGEXP = /^(On(.+)wrote:.+\z)$/nm
     SIGNATURE_REGEXP = /^(Thanks(.+)Regards.+\z)$/inm
     REPLY_REGEXP = /^(From:(.+)Sent:.+\z)$/nm
     DASHES = "________________________________________"
 
-    def parse_mail(mail, body_type)
+    def self.parse_mail(mail, body_type)
+      email_parser = new()
+      email_parser.parse_email_tags(mail,body_type)
+    end
+
+    def parse_email_tags(mail,body_type)
       Rockdove.logger.info "Rockdove is parsing the mail content now..."
       return nil unless mail
       mail.gsub!(HTML_REGEXP, "").strip! if body_type == "HTML"
-      parsed_content = EmailReplyParser.parse_reply(mail) 
+      parsed_content = EmailReplyParser.parse_reply(mail)
       content = choose_and_parse(parsed_content)
       handle_outlook_extra_line_breaks(content)
     end
