@@ -16,8 +16,7 @@ module Rockdove
     def self.watch &block
       loop do
         begin
-          mail_retriever = new()
-          mail_retriever.send_rockdove_to_watch_mail(&block)
+          new().send_rockdove_to_watch_mail(&block)
         rescue Exception => e
           Rockdove.logger.error [e, *e.backtrace].join("\n")
         ensure
@@ -40,9 +39,8 @@ module Rockdove
       return no_mail_alert unless fetch_from_box
       Rockdove.logger.info "Rockdove collected #{fetch_from_box.count} mail(s)."
       letters = RockdoveCollection.new
-
       @mail_stack.reverse.each do |item|
-        if spammy_mail?(item)
+        if bounce_type_mail?(item)
           @mail_stack.delete(item)
         else
           letters << retrieve_mail(@inbox_connection.get_item(item.id))
@@ -51,7 +49,7 @@ module Rockdove
       letters
     end
 
-    def spammy_mail?(item)
+    def bounce_type_mail?(item)
       case item.subject
       when UNDELIVERABLE, AUTO_REPLY, SPAM
         Rockdove.logger.info "Rockdove deleted this mail: #{item.subject}."
@@ -80,7 +78,7 @@ module Rockdove
     end
 
     def inbox
-      @incoming_folder = Rockdove::Follow::Ready.incoming_folder
+      @incoming_folder = Rockdove::Config.incoming_folder
       Viewpoint::EWS::Folder.get_folder_by_name(@incoming_folder)
     rescue
       reconnect_and_raise_error

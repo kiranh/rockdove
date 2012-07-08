@@ -1,4 +1,4 @@
-rockdove
+rockdove ![rockdove](http://kiran.gnufied.org/wp-content/uploads/2012/07/1341725724_bird.png)
 ========
 
 Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby Gem will fetch the mail, parse it and polls the mailbox for the interval specified for further processing in your Rails Project. Its a simple plug and play daemon.
@@ -62,7 +62,7 @@ Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby G
 
 ## Acknowledgements
 
-  To [Biju Shoolapani](https://github.com/bijushoolapani)'s support and encouragement for approval to fulfil his team's coding dreams. To the Code Reviewer, [Hemant Kumar](http://github.com/gnufied) and for the logo sketch, [Bahula](http://github.com/bahula).
+  To [Biju Shoolapani](https://github.com/bijushoolapani) for support and encouragement. And the Code Reviewer, [Hemant Kumar](http://github.com/gnufied).
 
 ## Copyright
 

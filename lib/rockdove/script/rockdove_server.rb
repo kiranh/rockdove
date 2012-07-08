@@ -10,12 +10,12 @@ require "raad"
 
 class RockdoveServer
   def initialize
-    Rockdove::Follow::Ready.configure do |config| 
+    Rockdove::Config.configure do |config| 
       config.ews_url 'https://ewsdomain.com/ews/exchange.asmx'
       config.ews_username 'ews_username'
       config.ews_password 'ews_password'
       config.ews_folder 'Inbox'
-      #config.ews_move_folder 'Archive'
+      #config.ews_archive_folder 'Archive'
       #config.ews_watch_interval 60
     end
     #Raad.env = "production"
@@ -31,7 +31,7 @@ class RockdoveServer
   end
 
   def process_rockdove_job
-    Rockdove::Follow::CollectMail.watch do |parsed_mail|
+    Rockdove::CollectMail.watch do |parsed_mail|
       begin
         #Model.method(parsed_mail)
       rescue Exception => e
