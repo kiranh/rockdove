@@ -21,14 +21,14 @@ It provides a template of the rockdove server which is a simple plug and play da
   # ...
   
   Rockdove::Config.configure do |config| 
-      config.ews_url 'https://ewsdomain.com/ews/exchange.asmx'
-      config.ews_username 'ews_username'
-      config.ews_password 'ews_password'
-      config.ews_folder 'Inbox' # ews_folder is Inbox by default
-      config.ews_archive_folder 'Archive' # by default, it deletes the mail after processing,  # mention ews_archive_folder if it 
-      # has to be archived to a different folder
-      config.ews_watch_interval 60 # by default, the polling interval is 60
-    end
+    config.ews_url 'https://ewsdomain.com/ews/exchange.asmx'
+    config.ews_username 'ews_username'
+    config.ews_password 'ews_password'
+    config.ews_folder 'Inbox' # ews_folder is Inbox by default
+    config.ews_archive_folder 'Archive' # by default, it deletes the mail after processing,    # mention ews_archive_folder if it 
+    # has to be archived to a different folder
+    config.ews_watch_interval 60 # by default, the polling interval is 60
+  end
   
   # ...
 
