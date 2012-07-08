@@ -64,7 +64,7 @@ It provides a template of the rockdove server which is a simple plug and play da
 
 ## Compatibility
 
-  Tested on all Ruby versions with Travis CI. 
+  Tested on all Ruby versions (1.8.7, 1.9.2, 1.9.3) with Travis CI. 
 
 ## Contributors
 
