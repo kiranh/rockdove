@@ -15,7 +15,7 @@ Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby G
   ```
   It copies a template of rockdove server under you script folder which contains the following snippet:
   ```ruby
-  Rockdove::Follow::CollectMail.watch do |parsed_mail|
+  Rockdove::CollectMail.watch do |parsed_mail|
     begin
       #RailsModel.method(parsed_mail)
     rescue Exception => e
