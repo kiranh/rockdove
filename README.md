@@ -1,8 +1,9 @@
 rockdove ![rockdove](http://kiran.gnufied.org/wp-content/uploads/2012/07/1341725724_bird.png)
 ========
 
-Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby Gem will fetch the mail, parse it and polls the mailbox for the interval specified for further processing in your Rails Project. Its a simple plug and play daemon.
+Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby Gem connects to the EWS mailbox, fetches the mail items, parses each mail item (Signatures, Replies, Forward), handles bounce types (Undeliverable,AutoReply) and polls the mailbox for every interval specified. 
 
+It provides a template of the rockdove server which is a simple plug and play daemon.
 
 ## Installation
 
@@ -14,17 +15,34 @@ Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby G
   bundle exec rails g rockdove:install
   ```
   It copies a template of rockdove server under you script folder which contains the following snippet:
+
   ```ruby
-  Rockdove::CollectMail.watch do |parsed_mail|
+  
+  # ...
+  
+  Rockdove::Config.configure do |config| 
+      config.ews_url 'https://ewsdomain.com/ews/exchange.asmx'
+      config.ews_username 'ews_username'
+      config.ews_password 'ews_password'
+      config.ews_folder 'Inbox' # ews_folder is Inbox by default
+      config.ews_archive_folder 'Archive' # by default, it deletes the mail after processing,  # mention ews_archive_folder if it 
+      # has to be archived to a different folder
+      config.ews_watch_interval 60 # by default, the polling interval is 60
+    end
+  
+  # ...
+
+  Rockdove::CollectMail.watch do |rockdove_parsed_mail|
     begin
-      #RailsModel.method(parsed_mail)
+      #Model.method(rockdove_parsed_mail)
     rescue Exception => e
-      Rockdove.logger.error "Exception occurred while receiving message:\n#{parsed_mail}"
+      Rockdove.logger.error "Exception occurred while receiving message:#{rockdove_parsed_mail}"
       Rockdove.logger.error [e, *e.backtrace].join("\n")
     end
   end
+
   ```
-  You need to change the RailsModel into the one being used in your project that would require this behavior of Mail Processing for Exchange Web Services 1.0 and further process the mail as per the requirements in your project.
+  You need to change the Model into the one being used in your project that would require this behavior of Mail Processing for Exchange Web Services 1.0 and further process the mail as per the requirements in your project.
 
   - And then you can run the script in console mode, `^C` will stop it, calling the stop method
 

@@ -11,12 +11,14 @@ require "raad"
 class RockdoveServer
   def initialize
     Rockdove::Config.configure do |config| 
+      # (EDIT THIS CONTENT BELOW)
       config.ews_url 'https://ewsdomain.com/ews/exchange.asmx'
       config.ews_username 'ews_username'
       config.ews_password 'ews_password'
-      config.ews_folder 'Inbox'
-      #config.ews_archive_folder 'Archive'
-      #config.ews_watch_interval 60
+      config.ews_folder 'Inbox' # ews_folder is Inbox by default
+      config.ews_archive_folder 'Archive' # by default, it deletes the mail after processing, mention ews_archive_folder if it 
+      # has to be archived to a different folder
+      config.ews_watch_interval 60 # by default, the polling interval is 60
     end
     #Raad.env = "production"
   end
@@ -31,11 +33,11 @@ class RockdoveServer
   end
 
   def process_rockdove_job
-    Rockdove::CollectMail.watch do |parsed_mail|
+    Rockdove::CollectMail.watch do |rockdove_parsed_mail|
       begin
-        #Model.method(parsed_mail)
+        #Model.method(rockdove_parsed_mail) (EDIT THIS)
       rescue Exception => e
-        Rockdove.logger.error "Exception occurred while receiving message:\n#{parsed_mail}"
+        Rockdove.logger.error "Exception occurred while receiving message:\n#{rockdove_parsed_mail}"
         Rockdove.logger.error [e, *e.backtrace].join("\n")
       end
     end
