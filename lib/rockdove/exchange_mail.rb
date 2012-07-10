@@ -33,12 +33,12 @@ module Rockdove
     end
 
     def body
-      mail = get_items(@mail_item.id)
+      mail = get_items(@mail_item)
       parse_it(mail.first.body, mail.first.body_type) unless mail.first.body.empty?
     end
 
-    def get_items(id)
-      @connection.get_items([id], nil, {:item_shape => retrieve_text_type})
+    def get_items(mail)
+      @connection.get_items([mail.id], nil, {:item_shape => retrieve_text_type})
     end
 
     def attachments
