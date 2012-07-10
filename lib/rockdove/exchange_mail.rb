@@ -6,11 +6,14 @@ module Rockdove
   class ExchangeMail
     extend Forwardable
 
-    def_delegators :@mail_item, :to_recipients, :date_time_created, :date_time_sent, :from
-    def_delegators :@mail_item, :subject, :body, :has_attachments?, :attachments
+    def_delegators :@mail_item, :to_recipients, :date_time_created, :date_time_sent, :from, :body, :body_type
+    def_delegators :@mail_item, :subject, :body, :has_attachments?, :attachments, :text_only=, :text_only? 
+
+    attr_accessor :connection
     
-    def initialize(mail_item)
+    def initialize(mail_item, connection)
       @mail_item = mail_item
+      @connection = connection
     end
 
     def to_recipients
@@ -30,7 +33,12 @@ module Rockdove
     end
 
     def body
-      parse_it(@mail_item.body, @mail_item.body_type) unless @mail_item.body.empty?
+      mail = get_items(@mail_item.id)
+      parse_it(mail.first.body, mail.first.body_type) unless mail.first.body.empty?
+    end
+
+    def get_items(id)
+      @connection.get_items([id], nil, {:item_shape => retrieve_text_type})
     end
 
     def attachments
@@ -47,6 +55,10 @@ module Rockdove
 
     def parse_it(mail_body, type)
       Rockdove::EmailParser.parse_mail(mail_body, type)
-    end   
+    end  
+
+    def retrieve_text_type
+      {:base_shape=>"AllProperties", :body_type=>"Text"}
+    end 
   end
 end

@@ -1,14 +1,14 @@
 module Rockdove
   class EmailParser
     HTML_REGEXP = /<\/?[^>]*>/
-    FWD_REGEXP = /^(On(.+)wrote:.+\z)$/nm
+    FWD_REGEXP = /^(On(.+)wrote:.+\z)$/inm
     SIGNATURE_REGEXP = /^(Thanks(.+)Regards.+\z)$/inm
-    REPLY_REGEXP = /^(From:(.+)Sent:.+\z)$/nm
+    REPLY_REGEXP = /^(From:(.+)Sent:.+\z)$/inm
+    SENT_VIA = /^(Sent(.+)Via.+\z)$/inm
     DASHES = "________________________________________"
 
     def self.parse_mail(mail, body_type)
-      email_parser = new()
-      email_parser.parse_email_tags(mail,body_type)
+      new().parse_email_tags(mail,body_type)
     end
 
     def parse_email_tags(mail,body_type)
@@ -16,13 +16,14 @@ module Rockdove
       return nil unless mail
       mail.gsub!(HTML_REGEXP, "").strip! if body_type == "HTML"
       parsed_content = EmailReplyParser.parse_reply(mail)
-      content = choose_and_parse(parsed_content)
-      handle_outlook_extra_line_breaks(content)
+      choose_and_parse(parsed_content)      
     end
 
     def choose_and_parse(content)
       content.gsub!(DASHES,"")      
-      case content     
+      case content 
+      when SENT_VIA
+        content.gsub(SENT_VIA,"").strip! 
       when SIGNATURE_REGEXP 
         content.gsub(SIGNATURE_REGEXP,"").strip! 
       when REPLY_REGEXP
@@ -33,14 +34,5 @@ module Rockdove
         content
       end      
     end   
-
-    def handle_outlook_extra_line_breaks(content)
-      if content && !(content.split("\n").first.include?(" "))
-        content.sub!("\n", "")
-      end
-      content
-    rescue
-      content
-    end
   end
 end
