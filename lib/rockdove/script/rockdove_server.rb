@@ -19,6 +19,7 @@ class RockdoveServer
       config.ews_archive_folder 'Archive' # by default, it deletes the mail after processing, mention ews_archive_folder if it 
       # has to be archived to a different folder
       config.ews_watch_interval 60 # by default, the polling interval is 60
+      config.ews_ignore_mails ["postmaster@ewsdomain.com"] # an array of emails to be ignored
     end
     #Raad.env = "production"
   end
