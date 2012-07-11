@@ -39,8 +39,10 @@ module Rockdove
 
     # Retrieve parsed body content of the mail by accessing Rockdove::ExchangeMail @class_instance.body
     def body
+      content = ""
       mail = get_items(@mail_item)
-      parse_it(mail.first.body, mail.first.body_type) unless mail.first.body.empty?
+      content = parse_it(mail.first.body, mail.first.body_type) unless mail.first.body.empty?
+      content.force_encoding('UTF-8') 
     end
 
     # Retrieves the mail item with text type body content
