@@ -7,6 +7,7 @@ describe "FetchIncomingMail" do
     @mail_retriever = Rockdove::CollectMail.new()
     @log_stream = StringIO.new
     Rockdove.stub!(:logger).and_return(Logger.new(@log_stream))
+    @test_server = Rockdove::EWS.new()
   end
   
   it "should validate the exchange server info provided" do
@@ -28,6 +29,7 @@ describe "FetchIncomingMail" do
   it "is trying to fetch a new forwarded mail" do
     mail = fetch_mail("forwarded_mail")
     mail.should be_an_instance_of(Rockdove::EWS)
+    handle_inbox(Array(mail))
     result = @mail_retriever.retrieve_mail(mail)  
     result.should be_an_instance_of(Rockdove::ExchangeMail)
     result.body.should == "FYI"  
@@ -39,6 +41,7 @@ describe "FetchIncomingMail" do
   it "is trying to fetch a new mail" do
     mail = fetch_mail("new_mail")  
     mail.should be_an_instance_of(Rockdove::EWS)
+    handle_inbox(Array(mail))
     result = @mail_retriever.retrieve_mail(mail) 
     result.should be_an_instance_of(Rockdove::ExchangeMail)   
     result.body.should == "Hi, This is a new post"  
@@ -50,6 +53,7 @@ describe "FetchIncomingMail" do
   it "is trying to fetch a new replied mail" do
     mail = fetch_mail("replied_mail")
     mail.should be_an_instance_of(Rockdove::EWS) 
+    handle_inbox(Array(mail))
     result = @mail_retriever.retrieve_mail(mail)
     result.should be_an_instance_of(Rockdove::ExchangeMail)
     result.body.should == "This is a replied post from outlook"
@@ -65,13 +69,11 @@ describe "FetchIncomingMail" do
     result.date_time_sent.should == mail.date_time_sent 
   end
 
-  def convert_from_hash(mail)
-    from_object = convert_to_class(mail.from)
-    mail.should_receive(:from).twice.and_return(from_object)
-  end
-
-  def convert_to_class(hash)
-    Hash2Class.new(hash)
+  def handle_inbox(mail_array)
+    @mail_retriever.should_receive(:inbox).at_most(:twice).and_return(@test_server)
+    @test_server.should_receive(:find_items).at_most(:twice).and_return(mail_array)
+    @test_server.should_receive(:get_items).at_most(:twice).and_return(mail_array)
+    @mail_retriever.retrieve_mail(mail_array.first).should be_an_instance_of(Rockdove::ExchangeMail)
   end
 
 end

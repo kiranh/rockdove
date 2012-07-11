@@ -39,7 +39,7 @@ is_read_receipt_requested:
 from:
   name:
     text: LastName, User (ewsdomain)
-  email_address: User.LastName@ewsdomain.com
+  email_address: postmaster@ewsdomain.com
   routing_type:
     text: SMTP
 is_read:
