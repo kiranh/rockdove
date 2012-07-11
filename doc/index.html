@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.2.1
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><h1>rockdove <img src="http://kiran.gnufied.org/wp-content/uploads/2012/07/1341725724_bird.png" alt="rockdove"> <a href="http://travis-ci.org/kiranh/rockdove"><img src="https://secure.travis-ci.org/kiranh/rockdove.png?branch=master" alt="Build Status"></a></h1>
+
+<p>Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby Gem connects to the EWS mailbox, fetches the mail items, parses each mail item (Signatures, Replies, Forward), handles bounce types (Undeliverable,AutoReply) and polls the mailbox for every interval specified. </p>
+
+<p>It provides a template of the rockdove server which is a simple plug and play daemon.</p>
+
+<h2>Installation</h2>
+
+<p>```ruby
+  #Under Gemfile
+  gem &#39;rockdove&#39;, :require =&gt; false</p>
+
+<p>#After bundle install, run this command below
+  bundle exec rails g rockdove:install
+  ```
+  It copies a template of rockdove server under you script folder which contains the following snippet:</p>
+
+<p>```ruby</p>
+
+<p># ...</p>
+
+<p>Rockdove::Config.configure do |config| 
+    config.ews<em>url &#39;https:&#47;&#47;ewsdomain.com&#47;ews&#47;exchange.asmx&#39;
+    config.ews</em>username &#39;ews<em>username&#39;
+    config.ews</em>password &#39;ews<em>password&#39;
+    config.ews</em>folder &#39;Inbox&#39; # ews<em>folder is Inbox by default
+    config.ews</em>archive<em>folder &#39;Archive&#39; # by default, it deletes the mail after processing,
+    # mention ews</em>archive<em>folder if it has to be archived to a different folder
+    config.ews</em>watch_interval 60 # by default, the polling interval is 60
+  end</p>
+
+<p># ...</p>
+
+<p>Rockdove::CollectMail.watch do |rockdove<em>parsed</em>mail|
+    begin
+      #Model.method(rockdove<em>parsed</em>mail)
+    rescue Exception =&gt; e
+      Rockdove.logger.error &quot;Exception occurred while receiving message:#rockdove&lt;em&gt;parsed&lt;/em&gt;mail&quot;
+      Rockdove.logger.error [e, *e.backtrace].join(&quot;\n&quot;)
+    end
+  end</p>
+
+<p>```
+  You need to change the Model into the one being used in your project that would require this behavior of Mail Processing for Exchange Web Services 1.0 and further process the mail as per the requirements in your project.</p>
+
+<ul>
+<li>And then you can run the script in console mode, <code>^C</code> will stop it, calling the stop method</li>
+</ul>
+
+<p><code>sh
+  $ ruby .&#47;script&#47;rockdove_server.rb start #from your project root
+</code>
+  - or run it daemonized, by default <code>.&#47;rockdove_server.log</code> and <code>.&#47;rockdove_server.pid</code> will be created</p>
+
+<p><code>sh
+  $ ruby .&#47;script&#47;rockdove_server.rb  -d start
+</code></p>
+
+<ul>
+<li>you can stop the daemon, removing <code>.&#47;rockdove_server.pid</code> or</li>
+</ul>
+
+<p><code>sh
+  $ ruby .&#47;script&#47;rockdove_server.rb stop
+</code></p>
+
+<hr>
+
+<h2>Compatibility</h2>
+
+<p>Tested on all Ruby versions (1.8.7, 1.9.2, 1.9.3) with Travis CI. </p>
+
+<h2>Contributors</h2>
+
+<p>Welcome for any code optmizations or issue fixes or enhancements</p>
+
+<h3>Setup:</h3>
+
+<p><code>ruby
+    git clone git@github.com:kiranh&#47;rockdove.git
+    cd rockdove
+    bundle exec rake # to run tests or bundle exec guard
+</code></p>
+
+<h2>Acknowledgements</h2>
+
+<p>To <a href="https://github.com/bijushoolapani">Biju Shoolapani</a> for support and encouragement. And the Code Reviewer, <a href="http://github.com/gnufied">Hemant Kumar</a>.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright (c) 2012-2015 Kiran Soumya Bosetti. See LICENSE for details.</p>
+</div></div>
+
+    <div id="footer">
+  Generated on Wed Jul 11 11:40:24 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.2.1 (ruby-1.9.2).
+</div>
+
+  </body>
+</html>
