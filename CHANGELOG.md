@@ -14,3 +14,7 @@
 * [Enhancement] Ignore Delivery Failure Notices
 * [Feature] Ignore Mails from specific email(s) list
 * [Enhancement] Handles line breaks issue by setting text only mode for email body
+
+## v0.2.0
+
+*[Feature] Generated Yard documentation
