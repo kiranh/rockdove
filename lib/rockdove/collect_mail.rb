@@ -3,6 +3,7 @@ module Rockdove
     UNDELIVERABLE = /Undeliverable/i
     AUTO_REPLY = /Automatic reply/i
     SPAM = /SPAM/i
+    FAILURE = /Delivery(.+)Failure/i
 
     class << self
       attr_accessor :mail_stack, :inbox_connection
@@ -28,7 +29,7 @@ module Rockdove
     def send_rockdove_to_watch_mail(&block)
       Rockdove.logger.info "Rockdove on watch for new mail..."
       parsed_mails = group_of_mails
-      if parsed_mails
+      if parsed_mails        
         Rockdove.logger.info "Rockdove calling App block"
         block.call(parsed_mails)
         process()
@@ -36,32 +37,45 @@ module Rockdove
     end
 
     def group_of_mails
-      return no_mail_alert unless fetch_from_box
-      Rockdove.logger.info "Rockdove collected #{fetch_from_box.count} mail(s)."
+      return no_mail_alert unless fetch_from_box      
+      Rockdove.logger.info "Rockdove collected #{@mail_stack.count} mail(s)."
       letters = RockdoveCollection.new
       @mail_stack.reverse.each do |item|
-        if bounce_type_mail?(item)
+        if ignore_mail?(item) || bounce_type_mail?(item)
+          item.delete!
           @mail_stack.delete(item)
-        else
-          letters << retrieve_mail(@inbox_connection.get_item(item.id))
+        else           
+          letters << retrieve_mail(item)
         end
       end
       letters
     end
 
+    def ignore_mail?(item)
+      email = item.from.email_address
+      ignore_list = Rockdove::Config.ignore_mails
+      return false unless ignore_list && !(ignore_list.empty?)
+      if ignore_list.include?(email)
+        Rockdove.logger.info "Rockdove detected #{email} under ignore mail list."
+        true 
+      else
+        false
+      end
+    end
+
     def bounce_type_mail?(item)
       case item.subject
-      when UNDELIVERABLE, AUTO_REPLY, SPAM
-        Rockdove.logger.info "Rockdove deleted this mail: #{item.subject}."
-        item.delete!
+      when UNDELIVERABLE, AUTO_REPLY, SPAM, FAILURE
+        Rockdove.logger.info "Rockdove deleting this mail: #{item.subject}."
         true
       else
         false
       end
     end
 
-    def retrieve_mail(fetched_mail)
-      Rockdove::ExchangeMail.new(fetched_mail)
+    def retrieve_mail(fetched_mail) 
+      @inbox_connection ||= inbox
+      Rockdove::ExchangeMail.new(fetched_mail, @inbox_connection)
     end
 
     def no_mail_alert

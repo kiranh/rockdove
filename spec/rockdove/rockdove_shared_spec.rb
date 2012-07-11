@@ -21,6 +21,10 @@ module Rockdove
       item
     end
 
+    def get_items(mail,key,shape)
+      Array(mail)
+    end
+
     def move!(destination)
       response("Archived the Mail Item")
     end
@@ -40,6 +44,15 @@ class Hash2Class
       self.class.send(:define_method, "#{k}=", proc{|v| self.instance_variable_set("@#{k}", v)})  
     end
   end
+end
+
+def convert_from_hash(mail)
+  from_object = convert_to_class(mail.from)
+  mail.should_receive(:from).at_most(3).times.and_return(from_object)
+end
+
+def convert_to_class(hash)
+  Hash2Class.new(hash)
 end
 
 def fetch_mail(name)

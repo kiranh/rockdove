@@ -1,7 +1,7 @@
 module Rockdove
   class Config
     class << self
-      attr_accessor :url, :username, :password, :incoming_folder, :archive_folder, :watch_interval
+      attr_accessor :url, :username, :password, :incoming_folder, :archive_folder, :watch_interval, :ignore_mails
     end
 
     def self.configure(&block)
@@ -31,6 +31,10 @@ module Rockdove
 
     def self.ews_watch_interval(value)
       @watch_interval = value || 60
+    end
+
+    def self.ews_ignore_mails(value)
+      @ignore_mails = value || []
     end
 
     def self.connect

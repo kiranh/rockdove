@@ -14,6 +14,7 @@ describe "CollectParseArchive" do
     mails = []
     mails << fetch_mail("new_mail") << fetch_mail("forwarded_mail") << fetch_mail("replied_mail")
     handle_inbox(mails)
+    mails.map {|mail| from_object = convert_to_class(mail.from) ; mail.should_receive(:from).at_most(3).times.and_return(from_object) }
     result = @mail_retriever.group_of_mails
     result.should be_an_instance_of(Rockdove::RockdoveCollection)
     result.count.should == 3
@@ -23,6 +24,7 @@ describe "CollectParseArchive" do
   it "should archive the mail at the end of collection cycle if user assigns ews move folder" do
     mail = fetch_mail("new_mail") 
     handle_inbox(Array(mail))
+    convert_from_hash(mail)
     @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
     stub_destination_point 
     lambda { @mail_retriever.process }.should_not raise_error
@@ -33,6 +35,7 @@ describe "CollectParseArchive" do
     @connection.archive_folder = nil
     mail = fetch_mail("new_mail") 
     handle_inbox(Array(mail))
+    convert_from_hash(mail)
     @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
     lambda { @mail_retriever.process }.should_not raise_error
     @log_stream.string.should =~ /Rockdove delivered & deleted the mail/
@@ -40,6 +43,7 @@ describe "CollectParseArchive" do
 
   it "should parse the signature of the mail" do
     mail = fetch_mail("mail_type_text") 
+    convert_from_hash(mail)
     parsed_content = Rockdove::EmailParser.parse_mail(mail.body, mail.body_type)
     parsed_content.should == "This is a new post"
   end 
@@ -53,6 +57,7 @@ describe "CollectParseArchive" do
   it "should watch for new mail when called" do
     mail = fetch_mail("new_mail") 
     handle_inbox(Array(mail))
+    convert_from_hash(mail)
     output = @mail_retriever.send_rockdove_to_watch_mail do |mail|
      true
     end
@@ -63,15 +68,26 @@ describe "CollectParseArchive" do
   it "should handle undeliverable bounce type" do
     mail = fetch_mail("auto_reply_mail")
     handle_inbox(Array(mail))
+    convert_from_hash(mail)
     @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
-    @log_stream.string.should include("Rockdove deleted this mail: Automatic reply: Out of Office Message")
+    @log_stream.string.should include("Rockdove deleting this mail: Automatic reply: Out of Office Message")
+  end
+
+  it "should ignore mails when specified under ews_ignore_mails list" do
+    mail = fetch_mail("undeliverable_mail")
+    handle_inbox(Array(mail))
+    convert_from_hash(mail)
+    @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
+    @log_stream.string.should include("Rockdove detected postmaster@ewsdomain.com under ignore mail list.")
   end
 
   it "should handle auto reply bounce type" do
+    @connection.ews_ignore_mails([])
     mail = fetch_mail("undeliverable_mail")
     handle_inbox(Array(mail))
+    convert_from_hash(mail)
     @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
-    @log_stream.string.should include("Rockdove deleted this mail: Undeliverable: New Post")
+    @log_stream.string.should include("Rockdove deleting this mail: Undeliverable: New Post")
   end
 
   def handle_inbox(mail_array)
