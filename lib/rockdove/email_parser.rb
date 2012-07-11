@@ -23,7 +23,7 @@ module Rockdove
       content.gsub!(DASHES,"")      
       case content 
       when SENT_VIA
-        content.gsub(SENT_VIA,"").strip! 
+        (content.gsub(REPLY_REGEXP,"").strip!).gsub(SENT_VIA,"").strip! 
       when SIGNATURE_REGEXP 
         content.gsub(SIGNATURE_REGEXP,"").strip! 
       when REPLY_REGEXP
