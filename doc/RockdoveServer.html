@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: RockdoveServer
+  
+    &mdash; Documentation by YARD 0.8.2.1
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (R)</a> &raquo;
+    
+    
+    <span class="title">RockdoveServer</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: RockdoveServer
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">RockdoveServer</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/rockdove/script/rockdove_server.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (RockdoveServer) <strong>initialize</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of RockdoveServer.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#process_rockdove_job-instance_method" title="#process_rockdove_job (instance method)">- (Object) <strong>process_rockdove_job</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start-instance_method" title="#start (instance method)">- (Object) <strong>start</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#stop-instance_method" title="#stop (instance method)">- (Object) <strong>stop</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="RockdoveServer (class)">RockdoveServer</a></span></tt>) <strong>initialize</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of RockdoveServer
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rockdove/script/rockdove_server.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='const'>Rockdove</span><span class='op'>::</span><span class='const'>Config</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span> 
+    <span class='comment'># (EDIT THIS CONTENT BELOW)
+</span>    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ews_url'>ews_url</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>https://ewsdomain.com/ews/exchange.asmx</span><span class='tstring_end'>'</span></span>
+    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ews_username'>ews_username</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ews_username</span><span class='tstring_end'>'</span></span>
+    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ews_password'>ews_password</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ews_password</span><span class='tstring_end'>'</span></span>
+    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ews_folder'>ews_folder</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Inbox</span><span class='tstring_end'>'</span></span> <span class='comment'># ews_folder is Inbox by default
+</span>    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ews_archive_folder'>ews_archive_folder</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Archive</span><span class='tstring_end'>'</span></span> <span class='comment'># by default, it deletes the mail after processing, mention ews_archive_folder if it 
+</span>    <span class='comment'># has to be archived to a different folder
+</span>    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ews_watch_interval'>ews_watch_interval</span> <span class='int'>60</span> <span class='comment'># by default, the polling interval is 60
+</span>    <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ews_ignore_mails'>ews_ignore_mails</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>postmaster@ewsdomain.com</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='comment'># an array of emails to be ignored
+</span>  <span class='kw'>end</span>
+  <span class='comment'>#Raad.env = &quot;production&quot;
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="process_rockdove_job-instance_method">
+  
+    - (<tt>Object</tt>) <strong>process_rockdove_job</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rockdove/script/rockdove_server.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_process_rockdove_job'>process_rockdove_job</span>
+  <span class='const'>Rockdove</span><span class='op'>::</span><span class='const'>CollectMail</span><span class='period'>.</span><span class='id identifier rubyid_watch'>watch</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_rockdove_parsed_mail'>rockdove_parsed_mail</span><span class='op'>|</span>
+    <span class='kw'>begin</span>
+      <span class='comment'>#Model.method(rockdove_parsed_mail) (EDIT THIS)
+</span>    <span class='kw'>rescue</span> <span class='const'>Exception</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+      <span class='const'>Rockdove</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Exception occurred while receiving message:\n</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rockdove_parsed_mail'>rockdove_parsed_mail</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='const'>Rockdove</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='lbracket'>[</span><span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="start-instance_method">
+  
+    - (<tt>Object</tt>) <strong>start</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rockdove/script/rockdove_server.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span>
+  <span class='const'>Raad</span><span class='op'>::</span><span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Rockdove Daemon started in </span><span class='embexpr_beg'>#{</span><span class='const'>Raad</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='rbrace'>}</span><span class='tstring_content'> env</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>    
+  <span class='id identifier rubyid_process_rockdove_job'>process_rockdove_job</span>    
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="stop-instance_method">
+  
+    - (<tt>Object</tt>) <strong>stop</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rockdove/script/rockdove_server.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_stop'>stop</span>
+  <span class='const'>Raad</span><span class='op'>::</span><span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Rockdove Daemon stopped</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jul 11 11:40:25 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.2.1 (ruby-1.9.2).
+</div>
+
+  </body>
+</html>
