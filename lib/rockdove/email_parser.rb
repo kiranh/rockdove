@@ -43,6 +43,7 @@ module Rockdove
             words[words.index(w)] = w.split("http")[0]
         end
       end
+      words.join(' ')
     end
 
   end
