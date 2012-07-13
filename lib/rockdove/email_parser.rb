@@ -3,8 +3,7 @@ module Rockdove
     HTML_REGEXP = /<\/?[^>]*>/
     FWD_REGEXP = /^(On(.+)wrote:.+\z)$/inm
     SIGNATURE_REGEXP = /^(Thanks(.+)Regards.+\z)$/inm
-    REPLY_REGEXP = /^(From:(.+)Sent:.+\z)$/inm
-    SENT_VIA = /^(Sent(.+)Via.+\z)$/inm
+    REPLY_REGEXP = /^(From:(.+)Sent:.+\z)$/inm    
     DASHES = "________________________________________"
 
     def self.parse_mail(mail, body_type)
@@ -21,9 +20,7 @@ module Rockdove
 
     def choose_and_parse(content)
       content.gsub!(DASHES,"")      
-      case content 
-      when SENT_VIA
-        ((content.gsub(REPLY_REGEXP,"").strip!).gsub(FWD_REGEXP,"").strip!).gsub(SENT_VIA,"").strip! 
+      case content       
       when SIGNATURE_REGEXP 
         content.gsub(SIGNATURE_REGEXP,"").strip! 
       when REPLY_REGEXP
