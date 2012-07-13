@@ -30,6 +30,20 @@ module Rockdove
       else
         content
       end      
-    end   
+    end  
+
+    # Strip the combined links with text and retrieve only text
+    def self.strip_text_combined_links(content)
+      words = content.split(" ")
+      words.each do |w|
+        case w
+          when /^http/
+            return
+          when /http/
+            words[words.index(w)] = w.split("http")[0]
+        end
+      end
+    end
+
   end
 end

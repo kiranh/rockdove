@@ -42,7 +42,7 @@ module Rockdove
       content = ""
       mail = get_items(@mail_item)
       content = parse_it(mail.first.body, mail.first.body_type) unless mail.first.body.empty?
-      content.force_encoding('UTF-8') 
+      Rockdove::EmailParser.strip_text_combined_links(content).force_encoding('UTF-8') 
     end
 
     # Retrieves the mail item with text type body content
