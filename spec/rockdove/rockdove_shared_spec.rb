@@ -3,7 +3,7 @@ require 'spec_helper.rb'
 module Rockdove
   class EWS
     attr_accessor :to_recipients, :date_time_created, :date_time_sent, :from
-    attr_accessor :subject, :body, :body_type, :attachments
+    attr_accessor :subject, :body, :body_type, :attachments, :has_attachments
 
     def id
       rand(10)
@@ -33,6 +33,13 @@ module Rockdove
       response("Deleted the Mail Item")
     end
 
+    def has_attachments?
+      self.has_attachments
+    end
+
+    class FileAttachment
+      attr_accessor :file_name, :content
+    end
   end
 end
 

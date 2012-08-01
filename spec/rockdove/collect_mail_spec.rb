@@ -90,10 +90,39 @@ describe "CollectParseArchive" do
     @log_stream.string.should include("Rockdove deleting this mail: Undeliverable: New Post")
   end
 
+  it "should be able to collect the attachment of a mail" do
+    mail = fetch_mail("mail_with_attachment")
+    handle_inbox(Array(mail))
+    convert_from_hash(mail)
+    result = @mail_retriever.group_of_mails.first
+    result.should be_an_instance_of(Rockdove::ExchangeMail)
+    result.has_attachments? == true  
+    load_attachment(result)
+    result.attachments.first.file_name = "CI.png"
+  end
+
+  it "should be able to collect and save the attachment to a file" do
+    mail = fetch_mail("mail_with_attachment")
+    handle_inbox(Array(mail))
+    convert_from_hash(mail)
+    result = @mail_retriever.group_of_mails.first
+    result.should be_an_instance_of(Rockdove::ExchangeMail)
+    result.has_attachments? == true  
+    load_attachment(result)
+    attachment = result.attachments.first
+    attachment.file_name.should == "CI.png"
+    result.save_to_file(attachment, nil, "sample_file_name").should == true
+  end
+
   def handle_inbox(mail_array)
     @mail_retriever.should_receive(:inbox).at_most(:twice).and_return(@test_server)
     @test_server.should_receive(:find_items).at_most(:twice).and_return(mail_array)
     @mail_retriever.retrieve_mail(mail_array.first).should be_an_instance_of(Rockdove::ExchangeMail)
+  end
+
+  def load_attachment(obj)
+    attachment = fetch_mail("attachment")
+    obj.should_receive(:attachments).at_most(:twice).and_return(Array(attachment))
   end
 
   def stub_destination_point
