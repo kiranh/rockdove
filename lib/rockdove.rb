@@ -22,3 +22,10 @@ module Rockdove
   end
 
 end
+
+# Make String encodings work the same across 1.8 and 1.9 
+class String
+  def force_encoding(enc)
+    self
+  end
+end
