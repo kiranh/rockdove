@@ -101,7 +101,20 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+This generator copies the rockdove_server script file to your rails
+application script folder
+</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -133,7 +146,11 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>
+copy_script copies the rockdove_server script file to your application
+script folder.
+</p>
+</div></span>
   
 </li>
 
@@ -157,18 +174,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>
+copy_script copies the rockdove_server script file to your application
+script folder
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-7
-8
-9</pre>
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/generators/rockdove/install_generator.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/generators/rockdove/install_generator.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_copy_script'>copy_script</span>
   <span class='id identifier rubyid_copy_file'>copy_file</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rockdove_server.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>script/rockdove_server.rb</span><span class='tstring_end'>&quot;</span></span>
@@ -183,7 +213,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Jul 11 11:40:25 2012 by
+  Generated on Wed Aug  1 19:13:39 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.2).
 </div>
