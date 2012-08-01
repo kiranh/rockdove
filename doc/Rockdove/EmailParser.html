@@ -281,7 +281,6 @@
       <pre class="lines">
 
 
-21
 22
 23
 24
@@ -293,10 +292,11 @@
 30
 31
 32
-33</pre>
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rockdove/email_parser.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/rockdove/email_parser.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_choose_and_parse'>choose_and_parse</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='const'>DASHES</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>      
@@ -337,7 +337,8 @@
 16
 17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/rockdove/email_parser.rb', line 13</span>
@@ -345,8 +346,9 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_parse_email_tags'>parse_email_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_mail'>mail</span><span class='comma'>,</span><span class='id identifier rubyid_body_type'>body_type</span><span class='rparen'>)</span>
   <span class='const'>Rockdove</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Rockdove is parsing the mail content now...</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mail'>mail</span>
-  <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='const'>HTML_REGEXP</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>            
-  <span class='id identifier rubyid_parsed_content'>parsed_content</span> <span class='op'>=</span> <span class='const'>EmailReplyParser</span><span class='period'>.</span><span class='id identifier rubyid_parse_reply'>parse_reply</span><span class='lparen'>(</span><span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_strip!'>strip!</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='const'>HTML_REGEXP</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>  
+  <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_strip!'>strip!</span>          
+  <span class='id identifier rubyid_parsed_content'>parsed_content</span> <span class='op'>=</span> <span class='const'>EmailReplyParser</span><span class='period'>.</span><span class='id identifier rubyid_parse_reply'>parse_reply</span><span class='lparen'>(</span><span class='id identifier rubyid_mail'>mail</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_choose_and_parse'>choose_and_parse</span><span class='lparen'>(</span><span class='id identifier rubyid_parsed_content'>parsed_content</span><span class='rparen'>)</span>      
 <span class='kw'>end</span></pre>
     </td>
@@ -359,7 +361,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Aug  1 20:17:09 2012 by
+  Generated on Wed Aug  1 20:20:04 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.2).
 </div>

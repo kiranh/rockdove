@@ -13,8 +13,9 @@ module Rockdove
     def parse_email_tags(mail,body_type)
       Rockdove.logger.info "Rockdove is parsing the mail content now..."
       return nil unless mail
-      mail.gsub!(HTML_REGEXP, "")            
-      parsed_content = EmailReplyParser.parse_reply(mail.strip!)
+      mail.gsub!(HTML_REGEXP, "")  
+      mail.strip!          
+      parsed_content = EmailReplyParser.parse_reply(mail)
       choose_and_parse(parsed_content)      
     end
 

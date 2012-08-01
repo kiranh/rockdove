@@ -2,7 +2,7 @@ lib/rockdove.rb 10c6f6cfccc7c581c7ca56f22bdcafebe8d4e060
 lib/rockdove/config.rb 93e78837a5b3ac91fc97318324cf8a3cae106d59
 lib/rockdove/version.rb f7032921d8c3974086f5ac28f3735b9ff431f503
 lib/rockdove/dovetie.rb 44b7f4571d615659ea9ad64ca9802eb8561c8f2f
-lib/rockdove/email_parser.rb 541a376be6699294c3f8a84e4097fb2bd6d93a5b
+lib/rockdove/email_parser.rb c99b79e2575d449eb0efb1d58f8134644ef75e74
 lib/rockdove/collect_mail.rb 0aadd90be2cbf4355a6dc6ff6998b1f7690ad99e
 lib/rockdove/exchange_mail.rb 444928b6a3eaa832fd4dfcd018b4d7166e67b57f
 lib/rockdove/script/rockdove_server.rb 4fc2fdf52730ee0d5912043091440b8f1c90c9d3
