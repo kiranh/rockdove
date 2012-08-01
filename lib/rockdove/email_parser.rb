@@ -13,7 +13,7 @@ module Rockdove
     def parse_email_tags(mail,body_type)
       Rockdove.logger.info "Rockdove is parsing the mail content now..."
       return nil unless mail
-      mail.gsub!(HTML_REGEXP, "").strip! if body_type == "HTML"
+      mail.gsub!(HTML_REGEXP, "").strip! 
       parsed_content = EmailReplyParser.parse_reply(mail)
       choose_and_parse(parsed_content)      
     end
@@ -31,20 +31,5 @@ module Rockdove
         content
       end      
     end  
-
-    # Strip the combined links with text and retrieve only text
-    def self.strip_text_combined_links(content)
-      words = content.split(" ")
-      words.each do |w|
-        case w
-          when /^http/
-            return
-          when /http/
-            words[words.index(w)] = w.split("http")[0]
-        end
-      end
-      words.join(' ')
-    end
-
   end
 end
