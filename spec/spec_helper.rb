@@ -13,7 +13,7 @@ dir = Pathname.new File.expand_path(File.dirname(__FILE__))
 EMAIL_FIXTURES = dir + 'rockdove' + 'emails'
 
 Rockdove::Config.configure do |config|
-  config.ews_url 'https://ewsdomain.com/ews/exchange.asmx'
+  config.ews_url 'http://ewsdomain.com/ews/exchange.asmx'
   config.ews_username 'username'
   config.ews_password 'password'
   config.ews_folder 'Inbox'

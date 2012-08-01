@@ -50,6 +50,11 @@ module Rockdove
       @connection.get_items([mail.id], nil, {:item_shape => retrieve_text_type})
     end
 
+    # Has attachments boolean
+    def has_attachments?
+      @mail_item.has_attachments?
+    end
+
     # Retrieve collection of attachments by accessing Rockdove::ExchangeMail @class_instance.attachments
     def attachments
       @mail_item.attachments
@@ -60,8 +65,7 @@ module Rockdove
       File.open("#{base_dir}#{file_name}", 'w+b') do |f|
         f.write(Base64.decode64(attachment.content))
       end
-      true
-      #attachment.save_to_file(basedir, filename)
+      true      
     end
 
     # Retrieve date_time_created of the mail by accessing Rockdove::ExchangeMail @class_instance.date_time_created
