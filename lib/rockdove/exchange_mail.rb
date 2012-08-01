@@ -60,6 +60,7 @@ module Rockdove
       @mail_item.attachments
     end
 
+    # Saves the attachment to a file by accessing Rockdove::ExchangeMail @class_instance.save_to_file with args attachment_object_from_rockdove::exchange_mail.attachments, base_dir, file_name
     def save_to_file(attachment, base_dir, file_name)
       base_dir << '/' unless(base_dir.nil? or base_dir.end_with?('/'))
       File.open("#{base_dir}#{file_name}", 'w+b') do |f|

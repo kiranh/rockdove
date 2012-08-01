@@ -17,11 +17,11 @@
 
 ## v0.2.0
 
-*[Feature] Generated Yard documentation
+* [Feature] Generated Yard documentation
 
 ## v0.3.0
 
-*[Feature] Email Attachments & Save to File support 
-*[Fix] Paste of links under email body generates unnecessary duplication of link tags
-*[Fix] Sent Via signature parsing under email body screws up Reply & forwarded mails parsing 
-*[Fix] Utf-8 encoding issues on email body & attachments
+* [Feature] Email Attachments & Save to File support 
+* [Fix] Paste of links under email body generates unnecessary duplication of link tags
+* [Fix] Sent Via signature parsing under email body screws up Reply & forwarded mails parsing 
+* [Fix] Utf-8 encoding issues on email body & attachments
