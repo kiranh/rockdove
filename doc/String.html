@@ -4,26 +4,26 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Class: Rockdove::Generators::InstallGenerator
+  Class: String
   
     &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
-  relpath = '../../';
-  framesUrl = "../../frames.html#!" + escape(window.location.href);
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
 </script>
 
 
-  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
-  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
 
 
   </head>
@@ -31,10 +31,10 @@
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (I)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../../Rockdove.html" title="Rockdove (module)">Rockdove</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Generators.html" title="Rockdove::Generators (module)">Generators</a></span></span>
-     &raquo; 
-    <span class="title">InstallGenerator</span>
+    <a href="_index.html">Index (S)</a> &raquo;
+    
+    
+    <span class="title">String</span>
   
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
@@ -43,17 +43,17 @@
       <div id="search">
   
     <a class="full_list_link" id="class_list_link"
-        href="../../class_list.html">
+        href="class_list.html">
       Class List
     </a>
   
     <a class="full_list_link" id="method_list_link"
-        href="../../method_list.html">
+        href="method_list.html">
       Method List
     </a>
   
     <a class="full_list_link" id="file_list_link"
-        href="../../file_list.html">
+        href="file_list.html">
       File List
     </a>
   
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Class: Rockdove::Generators::InstallGenerator
+    <div id="content"><h1>Class: String
   
   
   
@@ -73,14 +73,12 @@
   
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
-      <span class="inheritName">Rails::Generators::Base</span>
+      <span class="inheritName">Object</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rails::Generators::Base</li>
-          
-            <li class="next">Rockdove::Generators::InstallGenerator</li>
+            <li class="next">String</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -96,7 +94,7 @@
   
   
     <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/generators/rockdove/install_generator.rb</dd>
+    <dd class="r2 last">lib/rockdove.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -104,8 +102,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     <p>
-This generator copies the rockdove_server script file to your rails
-application script folder
+Make String encodings work the same across 1.8 and 1.9
 </p>
 
 
@@ -132,7 +129,7 @@ application script folder
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#copy_script-instance_method" title="#copy_script (instance method)">- (Object) <strong>copy_script</strong> </a>
+      <a href="#force_encoding-instance_method" title="#force_encoding (instance method)">- (Object) <strong>force_encoding</strong>(enc) </a>
     
 
     
@@ -147,8 +144,7 @@ application script folder
 
   
     <span class="summary_desc"><div class='inline'><p>
-copy_script copies the rockdove_server script file to your application
-script folder.
+Make String force_encodings work the same across 1.8 and 1.9.
 </p>
 </div></span>
   
@@ -159,16 +155,15 @@ script folder.
   
 
 
-  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="copy_script-instance_method">
+  <h3 class="signature first" id="force_encoding-instance_method">
   
-    - (<tt>Object</tt>) <strong>copy_script</strong> 
+    - (<tt>Object</tt>) <strong>force_encoding</strong>(enc) 
   
 
   
@@ -177,8 +172,7 @@ script folder.
 </h3><div class="docstring">
   <div class="discussion">
     <p>
-copy_script copies the rockdove_server script file to your application
-script folder
+Make String force_encodings work the same across 1.8 and 1.9
 </p>
 
 
@@ -193,15 +187,15 @@ script folder
       <pre class="lines">
 
 
-10
-11
-12</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/generators/rockdove/install_generator.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/rockdove.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_copy_script'>copy_script</span>
-  <span class='id identifier rubyid_copy_file'>copy_file</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rockdove_server.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>script/rockdove_server.rb</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_force_encoding'>force_encoding</span><span class='lparen'>(</span><span class='id identifier rubyid_enc'>enc</span><span class='rparen'>)</span>
+  <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>

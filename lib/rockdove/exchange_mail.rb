@@ -1,5 +1,5 @@
+# encoding: utf-8
 module Rockdove
-
   class RockdoveCollection < Array
   end
 
@@ -39,8 +39,10 @@ module Rockdove
 
     # Retrieve parsed body content of the mail by accessing Rockdove::ExchangeMail @class_instance.body
     def body
+      content = ""
       mail = get_items(@mail_item)
-      parse_it(mail.first.body, mail.first.body_type) unless mail.first.body.empty?
+      content = parse_it(mail.first.body, mail.first.body_type) unless mail.first.body.empty?
+      content.force_encoding('UTF-8')  
     end
 
     # Retrieves the mail item with text type body content
@@ -48,9 +50,23 @@ module Rockdove
       @connection.get_items([mail.id], nil, {:item_shape => retrieve_text_type})
     end
 
+    # Has attachments boolean
+    def has_attachments?
+      @mail_item.has_attachments?
+    end
+
     # Retrieve collection of attachments by accessing Rockdove::ExchangeMail @class_instance.attachments
     def attachments
       @mail_item.attachments
+    end
+
+    # Saves the attachment to a file by accessing Rockdove::ExchangeMail @class_instance.save_to_file with args attachment_object_from_rockdove::exchange_mail.attachments, base_dir, file_name
+    def save_to_file(attachment, base_dir, file_name)
+      base_dir << '/' unless(base_dir.nil? or base_dir.end_with?('/'))
+      File.open("#{base_dir}#{file_name}", 'w+b') do |f|
+        f.write(Base64.decode64(attachment.content))
+      end
+      true      
     end
 
     # Retrieve date_time_created of the mail by accessing Rockdove::ExchangeMail @class_instance.date_time_created

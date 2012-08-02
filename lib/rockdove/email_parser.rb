@@ -3,8 +3,7 @@ module Rockdove
     HTML_REGEXP = /<\/?[^>]*>/
     FWD_REGEXP = /^(On(.+)wrote:.+\z)$/inm
     SIGNATURE_REGEXP = /^(Thanks(.+)Regards.+\z)$/inm
-    REPLY_REGEXP = /^(From:(.+)Sent:.+\z)$/inm
-    SENT_VIA = /^(Sent(.+)Via.+\z)$/inm
+    REPLY_REGEXP = /^(From:(.+)Sent:.+\z)$/inm    
     DASHES = "________________________________________"
 
     def self.parse_mail(mail, body_type)
@@ -14,16 +13,15 @@ module Rockdove
     def parse_email_tags(mail,body_type)
       Rockdove.logger.info "Rockdove is parsing the mail content now..."
       return nil unless mail
-      mail.gsub!(HTML_REGEXP, "").strip! if body_type == "HTML"
+      mail.gsub!(HTML_REGEXP, "")  
+      mail.strip!          
       parsed_content = EmailReplyParser.parse_reply(mail)
       choose_and_parse(parsed_content)      
     end
 
     def choose_and_parse(content)
       content.gsub!(DASHES,"")      
-      case content 
-      when SENT_VIA
-        content.gsub(SENT_VIA,"").strip! 
+      case content       
       when SIGNATURE_REGEXP 
         content.gsub(SIGNATURE_REGEXP,"").strip! 
       when REPLY_REGEXP
@@ -33,6 +31,6 @@ module Rockdove
       else
         content
       end      
-    end   
+    end  
   end
 end
