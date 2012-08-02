@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["kiran.soumya@gmail.com"]
   s.homepage    = "https://github.com/kiranh/rockdove"
   s.summary     = %q{Incoming mail processing daemon for Exchange Web Services (EWS)}
-  s.description = %q{Incoming mail processing daemon for Exchange Web Services (EWS). This is the Ruby Gem that does fetching, parsing and watching the mailbox for further processing.}
+  s.description = %q{Incoming mail processing daemon for Exchange Web Services (EWS). This is the Ruby Gem that does fetching, parsing and watching the exchange mail box for further processing.}
 
   s.rubyforge_project = "rockdove"
 
