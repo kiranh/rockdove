@@ -24,10 +24,12 @@ module Rockdove
 
 end
 
-# Make String encodings work the same across 1.8 and 1.9 
-class String
-  # Make String force_encodings work the same across 1.8 and 1.9 
-  def force_encoding(enc)
-    self
+if RUBY_VERSION == '1.8.7'
+  # Make String encodings work the same across 1.8  
+  class String
+    # Make String force_encodings work the same across 1.8  
+    def force_encoding(enc)
+      self
+    end
   end
 end
