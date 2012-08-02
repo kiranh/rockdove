@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "rake", "~>0.9.2.2"
-  s.add_development_dependency "simplecov"
+  s.add_development_dependency "simplecov" if RUBY_VERSION >= '1.9'
   
   s.add_runtime_dependency "raad" 
   s.add_runtime_dependency "viewpoint", "= 0.1.26"
