@@ -25,8 +25,8 @@ It provides a template of the rockdove server which is a simple plug and play da
     config.ews_username 'ews_username'
     config.ews_password 'ews_password'
     config.ews_folder 'Inbox' # ews_folder is Inbox by default
-    config.ews_archive_folder 'Archive' # by default, it deletes the mail after processing,
-    # mention ews_archive_folder if it has to be archived to a different folder
+    # by default, it deletes the mail after processing, mention ews_archive_folder if it has to be archived to a different folder
+    config.ews_archive_folder 'Archive'
     config.ews_watch_interval 60 # by default, the polling interval is 60
   end
   
@@ -34,7 +34,9 @@ It provides a template of the rockdove server which is a simple plug and play da
 
   Rockdove::CollectMail.watch do |rockdove_parsed_mail|
     begin
-      #Model.method(rockdove_parsed_mail)
+      Model.method(rockdove_parsed_mail)
+      # As per your application requirements, refer the options that you can play with here,
+      # http://rdoc.info/github/kiranh/rockdove/Rockdove/ExchangeMail
     rescue Exception => e
       Rockdove.logger.error "Exception occurred while receiving message:#{rockdove_parsed_mail}"
       Rockdove.logger.error [e, *e.backtrace].join("\n")
