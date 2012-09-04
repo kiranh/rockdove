@@ -4,6 +4,7 @@ module Rockdove
     AUTO_REPLY = /Automatic reply/i
     SPAM = /SPAM/i
     FAILURE = /Delivery(.+)Failure/i
+    AUTO_REPLIES_HEADER = "X-Auto-Response-Suppress"
 
     class << self
       attr_accessor :mail_stack, :inbox_connection
@@ -69,7 +70,7 @@ module Rockdove
         Rockdove.logger.info "Rockdove deleting this mail: #{item.subject}."
         true
       else
-        false
+        item.headers.include?(AUTO_REPLIES_HEADER) ? true : false
       end
     end
 
@@ -111,13 +112,13 @@ module Rockdove
       return nil
     end
 
-    def process
-      @to_folder = Rockdove::Config.archive_folder
+    def process      
       @mail_stack.each {|item| archive(item) }
       @mail_stack = nil
     end
 
     def archive(item)
+      @to_folder = Rockdove::Config.archive_folder
       if @to_folder.blank?
         item.delete!
         Rockdove.logger.info "Rockdove delivered & deleted the mail."

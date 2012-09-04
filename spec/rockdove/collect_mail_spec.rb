@@ -70,7 +70,8 @@ describe "CollectParseArchive" do
     handle_inbox(Array(mail))
     convert_from_hash(mail)
     @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
-    @log_stream.string.should include("Rockdove deleting this mail: Automatic reply: Out of Office Message")
+    @mail_retriever.bounce_type_mail?(mail).should == true
+    @log_stream.string.should include("Rockdove deleting this mail: Automatic reply: Out of Office Message")    
   end
 
   it "should ignore mails when specified under ews_ignore_mails list" do
@@ -87,6 +88,7 @@ describe "CollectParseArchive" do
     handle_inbox(Array(mail))
     convert_from_hash(mail)
     @mail_retriever.group_of_mails.should be_an_instance_of(Rockdove::RockdoveCollection)
+    @mail_retriever.bounce_type_mail?(mail).should == true
     @log_stream.string.should include("Rockdove deleting this mail: Undeliverable: New Post")
   end
 

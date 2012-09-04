@@ -18,6 +18,7 @@ body: ! "<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/ht
     LastName</font><br>\r\n<font face=\"comic sans ms,sans-serif\">&quot;Th</font><font
     face=\"comic sans ms,sans-serif\">e Journey Goes on...&quot;<br>\r\nCatch me
     <a href=\"https://socio.ewsdomain.com/u/505\" target=\"_blank\">@network</a><br>\r\n</font><br>\r\n</body>\r\n</html>\r\n"
+headers: "X-Auto-Response-Suppress"
 size:
   text: '1324'
 date_time_sent:
