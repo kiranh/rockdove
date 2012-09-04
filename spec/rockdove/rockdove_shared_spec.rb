@@ -3,7 +3,7 @@ require 'spec_helper.rb'
 module Rockdove
   class EWS
     attr_accessor :to_recipients, :date_time_created, :date_time_sent, :from
-    attr_accessor :subject, :body, :body_type, :attachments, :has_attachments
+    attr_accessor :subject, :body, :body_type, :attachments, :has_attachments, :headers
 
     def id
       rand(10)
