@@ -11,6 +11,7 @@ sensitivity:
 body_type: Text
 body: ! "This is a new post\r\nThanks & Regards,\r\n  [http://etc.usf.edu/clipart/2400/2430/k_1_lg.gif]
     iran lastname\r\n\"The Journey Goes on...\"\r\nCatch me @network<https://socio.ewsdomain.com/u/505>\r\n\r\n"
+headers: ""
 size:
   text: '1658'
 date_time_sent:

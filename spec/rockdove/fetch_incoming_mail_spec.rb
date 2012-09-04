@@ -36,6 +36,7 @@ describe "FetchIncomingMail" do
     match_results(result, mail)
     convert_from_hash(mail)
     result.from.should == "User.LastName@ewsdomain.com" 
+    result.auto_response?.should == false
   end
 
   it "is trying to fetch a new mail" do
@@ -48,6 +49,7 @@ describe "FetchIncomingMail" do
     match_results(result, mail)
     convert_from_hash(mail)
     result.from.should == "User.LastName@ewsdomain.com"  
+    result.auto_response?.should == false
   end
 
   it "is trying to fetch a new replied mail" do
@@ -60,6 +62,7 @@ describe "FetchIncomingMail" do
     match_results(result, mail)
     convert_from_hash(mail)
     result.from.should == "User.LastName@ewsdomain.com"   
+    result.auto_response?.should == false
   end
 
   def match_results(result, mail)

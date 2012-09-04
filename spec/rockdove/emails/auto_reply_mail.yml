@@ -6,6 +6,7 @@ parent_folder_id:
   id: AAMkADZjZWE3MWJkLWJmZDctNGViOC1iMmFjLTgxOWE5MDk5NDg5OAAuAAAAAAD/yBU79ZvXQ6rBazqQ3s20AQBjikxovOdMSKu/0PoKjGIOAAADx+aDAAA=
   change_key: AQAAAA==
 subject: "Automatic reply: Out of Office Message"
+headers: "X-Auto-Response-Suppress"
 sensitivity:
   text: Normal
 body_type: HTML

@@ -8,7 +8,7 @@ module Rockdove
 
     # The below specifics can be accessed via Rockdove::ExchangeMail @class_instance.
     def_delegators :@mail_item, :to_recipients, :date_time_created, :date_time_sent, :from, :body, :body_type
-    def_delegators :@mail_item, :subject, :body, :has_attachments?, :attachments, :text_only=, :text_only? 
+    def_delegators :@mail_item, :subject, :body, :has_attachments?, :attachments, :text_only=, :text_only?, :auto_response?
 
     attr_accessor :connection
     
@@ -88,5 +88,9 @@ module Rockdove
     def retrieve_text_type
       {:base_shape=>"AllProperties", :body_type=>"Text"}
     end 
+
+    def auto_response?
+      Rockdove::CollectMail.new.bounce_type_mail?(@mail_item)
+    end
   end
 end

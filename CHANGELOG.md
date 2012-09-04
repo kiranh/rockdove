@@ -25,3 +25,7 @@
 * [Fix] Paste of links under email body generates unnecessary duplication of link tags
 * [Fix] Sent Via signature parsing under email body screws up Reply & forwarded mails parsing 
 * [Fix] Utf-8 encoding issues on email body & attachments
+
+## v0.3.1
+
+* [Fix] Handles peculiar cases of Auto Replies ex: Out of Office responses
