@@ -9,7 +9,6 @@ It provides a template of the rockdove server which is a simple plug and play da
 
   ```ruby
   #Under Gemfile
-  
   gem "rockdove", "~> 0.3.1", :require => false
 
   #After bundle install, run this command below
