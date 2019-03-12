@@ -81,10 +81,6 @@ It provides a template of the rockdove server which is a simple plug and play da
     bundle exec rake # to run tests or bundle exec guard
   ```
 
-## Acknowledgements
-
-  To [Biju Shoolapani](https://github.com/bijushoolapani) for support and encouragement. And the Code Reviewer, [Hemant Kumar](http://github.com/gnufied).
-
 ## Copyright
 
 Copyright (c) 2012-2015 Kiran Soumya Bosetti. See LICENSE for details.
