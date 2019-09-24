@@ -1,4 +1,4 @@
-rockdove ![rockdove](http://kiran.gnufied.org/wp-content/uploads/2012/07/1341725724_bird.png) [![Build Status](https://secure.travis-ci.org/kiranh/rockdove.png?branch=master)](http://travis-ci.org/kiranh/rockdove) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/kiranh/rockdove)
+rockdove ![rockdove](http://kiran.gnufied.org/wp-content/uploads/2012/07/1341725724_bird.png) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/kiranh/rockdove)
 ========
 
 Incoming mail processing daemon for Exchange Web Services 1.0 (EWS). This Ruby Gem connects to the EWS mailbox, fetches the mail items, parses each mail item (Signatures, Replies, Forward), handles bounce types (Undeliverable,AutoReply) and polls the mailbox for every interval specified. 
